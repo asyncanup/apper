@@ -1,0 +1,35 @@
+{
+  "name": "apper",
+  "description": "Convention-based restful app development in node",
+  "version": "0.0.1",
+  "author": {
+    "name": "Anup Bishnoi",
+    "email": "pixelsallover@gmail.com"
+  },
+  "dependencies": {
+    "methods": "0.0.1",
+    "express": "~3.1.0"
+  },
+  "keywords": [
+    "convention",
+    "framework",
+    "web",
+    "rest",
+    "restful",
+    "router",
+    "app",
+    "api"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/anupbishnoi/apper"
+  },
+  "main": "index",
+  "scripts": {
+    "prepublish": "npm prune",
+    "test": "make test"
+  },
+  "engines": {
+    "node": "*"
+  }
+}
