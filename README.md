@@ -25,20 +25,20 @@ Example directory structure
 -------
 
   - root
-    - server.js: *shown above*
-    - environment.js
-    - middleware.js
-    - routes.js: GET /, GET /buddy
+    - **server.js**: *shown above*
+    - **environment.js**
+    - **middleware.js**
+    - **routes.js**: GET /, GET /buddy
 
     - subapp1
-      - routes.js: GET /, POST /
+      - **routes.js**: GET /, POST /
 
     - subapp2
-      - middleware.js
-      - routes.js: GET /
+      - **middleware.js**
+      - **routes.js**: GET /
 
       - subapp3
-        - routes.js: GET /, GET /last
+        - **routes.js**: GET /, GET /last
 
 Routes exposed by the structure above
 ------
