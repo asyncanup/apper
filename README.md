@@ -4,32 +4,33 @@ apper
 Plug and play, convention based, restful app development in node.js
 
 
-## Install
+Install
+-------
 
 `npm install apper`
 
 
-## Usage
+Usage
+-----
 
-Example directory structure
--------
+### Example directory structure
+
   - root
-    o environment.js
-    o middleware.js
-    o routes.js: GET /, GET /buddy
+    - environment.js
+    - middleware.js
+    - routes.js: GET /, GET /buddy
 
-    o subapp1
+    - subapp1
       - routes.js: GET /, POST /
 
-    o subapp2
+    - subapp2
       - middleware.js
       - routes.js: GET /
 
       - subapp3
-        o routes.js: GET /, GET /last
+        - routes.js: GET /, GET /last
 
-Routes exposed by the structure above
-------
+### Routes exposed by the structure above
 
 * GET  /
 * GET  /buddy
@@ -43,22 +44,21 @@ Routes exposed by the structure above
 * GET  /subapp1/subapp2/subapp3/last
 
 
-Structure of routes.js, environment.js, middleware.js
----------
+### Structure of routes.js, environment.js, middleware.js
 
-## routes.js
+#### routes.js
 
     module.exports = function (app, mountPath) {
         app.get("/", function (req, res, next) { res.send("hey"); });
     }
 
-## middleware.js
+#### middleware.js
 
     module.exports = function (app, mountPath) {
         app.use(function (req, res, next) { next(); });
     }
 
-## environment.js
+#### environment.js
 
     module.exports = function (app, mountPath) {
         app.set("property", "value");
@@ -73,4 +73,4 @@ Every subapp is a complete node.js app unto itself.
 It can have a package.json, its dependencies are respected,
 it can be pulled out and placed anywhere in the overall directory structure.
 
-The rest api is entirely based on the directory structure, and what app lies where.
+The rest api is entirely based on the directory structure, on what app lies where.
