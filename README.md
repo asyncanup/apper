@@ -83,6 +83,7 @@ And guess what
 Every subapp is a complete node.js app unto itself.
 
 It can have a package.json, its dependencies are respected,
-it can be pulled out and placed anywhere in the overall directory structure.
+it can be pulled out and placed anywhere in the overall directory structure,
+or even used as a separated app (that's the whole point, actually).
 
 The rest api is entirely based on the directory structure, on what app lies where.
