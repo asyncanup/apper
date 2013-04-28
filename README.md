@@ -34,8 +34,8 @@ Example directory structure
       - **routes.js**: GET /, POST /
 
       - *subapp2/*
-        - **middleware.js**
-        - **routes.js**: GET /, GET /last
+        - > **middleware.js**
+        - > **routes.js**: GET /, GET /last
 
 Routes exposed by the structure above
 ------
