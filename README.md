@@ -24,20 +24,20 @@ Usage
 Example directory structure
 -------
 
-  - root/
+  - *root/*
     - **server.js**: *shown above*
     - **environment.js**
     - **middleware.js**
     - **routes.js**: GET /, GET /buddy
 
-    - subapp1/
+    - *subapp1/*
       - **routes.js**: GET /, POST /
 
-    - subapp2/
+    - *subapp2/*
       - **middleware.js**
       - **routes.js**: GET /
 
-      - subapp3/
+      - *subapp3/*
         - **routes.js**: GET /, GET /last
 
 Routes exposed by the structure above
