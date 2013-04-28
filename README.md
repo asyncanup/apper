@@ -24,20 +24,18 @@ Usage
 Example directory structure
 -------
 
-- *root/*
-  - **server.js**: *shown above*
-  - **environment.js**
-  - **middleware.js**
-  - **routes.js**: GET /, GET /buddy
-
-  - *subapp1/*
-    - **routes.js**: GET /, POST /
-
-  - *subapp2/*
+  - *root/*
+    - **server.js**: *shown above*
+    - **environment.js**
     - **middleware.js**
-    - **routes.js**: GET /
-    - *subapp3/*:
-      - **routes.js**: GET /, GET /last
+    - **routes.js**: GET /, GET /buddy
+
+    - *subapp1/*
+      - **routes.js**: GET /, POST /
+
+      - *subapp2/*
+        - **middleware.js**
+        - **routes.js**: GET /, GET /last
 
 Routes exposed by the structure above
 ------
@@ -49,9 +47,7 @@ Routes exposed by the structure above
 * POST /subapp1
 
 * GET  /subapp1/subapp2
-
-* GET  /subapp1/subapp2/subapp3
-* GET  /subapp1/subapp2/subapp3/last
+* GET  /subapp1/subapp2/last
 
 
 Structure of routes.js, environment.js, middleware.js
