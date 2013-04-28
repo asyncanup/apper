@@ -1,13 +1,12 @@
 {
   "name": "apper",
-  "description": "Convention-based restful app development in node",
-  "version": "0.0.1",
+  "description": "Convention-based restful app development in node.js",
+  "version": "0.0.2",
   "author": {
     "name": "Anup Bishnoi",
     "email": "pixelsallover@gmail.com"
   },
   "dependencies": {
-    "methods": "0.0.1",
     "express": "~3.1.0"
   },
   "keywords": [
@@ -18,7 +17,9 @@
     "restful",
     "router",
     "app",
-    "api"
+    "api",
+    "subapp",
+    "mount"
   ],
   "repository": {
     "type": "git",
