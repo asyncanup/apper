@@ -13,9 +13,19 @@ Install
 Usage
 -----
 
-### Example directory structure
+### server.js
+
+    var app = require("apper")();
+
+    if (app.init()) {
+        app.start(8000);
+    }
+
+Example directory structure
+-------
 
   - root
+    - server.js: *shown above*
     - environment.js
     - middleware.js
     - routes.js: GET /, GET /buddy
@@ -30,7 +40,8 @@ Usage
       - subapp3
         - routes.js: GET /, GET /last
 
-### Routes exposed by the structure above
+Routes exposed by the structure above
+------
 
 * GET  /
 * GET  /buddy
@@ -44,21 +55,22 @@ Usage
 * GET  /subapp1/subapp2/subapp3/last
 
 
-### Structure of routes.js, environment.js, middleware.js
+Structure of routes.js, environment.js, middleware.js
+---------
 
-#### routes.js
+### routes.js
 
     module.exports = function (app, mountPath) {
         app.get("/", function (req, res, next) { res.send("hey"); });
     }
 
-#### middleware.js
+### middleware.js
 
     module.exports = function (app, mountPath) {
         app.use(function (req, res, next) { next(); });
     }
 
-#### environment.js
+### environment.js
 
     module.exports = function (app, mountPath) {
         app.set("property", "value");
