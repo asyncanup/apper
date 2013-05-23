@@ -1,13 +1,14 @@
 {
   "name": "apper",
   "description": "Convention-based restful app development in node.js",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "author": {
     "name": "Anup Bishnoi",
     "email": "pixelsallover@gmail.com"
   },
   "dependencies": {
-    "express": "~3.1.0"
+    "express": "~3.1.0",
+    "debug": "~0.7.2"
   },
   "keywords": [
     "convention",
