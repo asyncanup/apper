@@ -29,9 +29,11 @@
   "main": "index",
   "scripts": {
     "prepublish": "npm prune",
-    "test": "make test"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
   },
   "engines": {
     "node": "*"
-  }
+  },
+  "license": "MIT"
 }
