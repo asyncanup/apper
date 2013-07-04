@@ -1,7 +1,7 @@
 {
   "name": "apper",
   "description": "Convention-based restful app development in node.js",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "author": {
     "name": "Anup Bishnoi",
     "email": "pixelsallover@gmail.com"
