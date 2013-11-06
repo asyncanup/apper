@@ -21,6 +21,9 @@ Usage
         app.start(8000);
     }
 
+Calling `app.init({ sockets: true })` starts a WebSocket server using `socket.io`
+which can be used on the client by including `/socket.io/socket.io.js` in HTML.
+
 Example directory structure
 -------
 
