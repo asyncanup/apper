@@ -1,5 +1,9 @@
 var App = require("./lib/app");
 
-module.exports = function (opts) {
+module.exports = apper;
+
+function apper(opts) {
     return new App(opts);
-};
+}
+
+apper.App = App;

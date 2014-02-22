@@ -1,0 +1,7 @@
+{
+    "dirToIgnore": ["subapp2"],
+    "moduleNames": {
+        "environment": "env",
+        "middleware": "mid"
+    }
+}
