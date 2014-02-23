@@ -10,19 +10,6 @@ Install
 `npm install apper`
 
 
-Usage
------
-
-### server.js
-
-    var app = require("apper")();
-
-    app.init() && app.start();
-
-It automatically starts a WebSocket server using `socket.io`
-which can be used on the client by including `/socket.io/socket.io.js` in HTML.
-
-
 Idea
 ----
 
@@ -104,6 +91,19 @@ The following things get initialized on the subapp in order:
 
 Usage
 -----
+
+### server.js
+
+    var app = require("apper")();
+
+    app.init() && app.start();
+
+It automatically starts a WebSocket server using `socket.io`
+which can be used on the client by including `/socket.io/socket.io.js` in HTML.
+
+You may want to include `server.js` in subapps as well, just to be able to go
+into that directory and start that subapp as the root app.
+
 
 ### Structure of modules
 
