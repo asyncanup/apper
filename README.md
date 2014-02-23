@@ -1,7 +1,7 @@
 apper
 =====
 
-Plug and play, convention based, restful app development in node.js
+Plug and play, restful, real-time, lean app development in node.js
 
 
 Install
@@ -17,71 +17,160 @@ Usage
 
     var app = require("apper")();
 
-    if (app.init()) {
-        app.start(8000);
-    }
+    app.init() && app.start();
 
-Calling `app.init({ sockets: true })` starts a WebSocket server using `socket.io`
+It automatically starts a WebSocket server using `socket.io`
 which can be used on the client by including `/socket.io/socket.io.js` in HTML.
 
-Example directory structure
--------
+
+Idea
+----
+
+The core idea of `apper` is to enable easy REST api based node.js apps, by
+letting you place individual subapps simply in the required directory hierarchy.
+
+Moving a subapp directory just changes its relative URL from the base app.
+
+
+### Example directory structure
 
   - *root/*
-    - **server.js**: *shown above*
-    - **environment.js**
-    - **middleware.js**
-    - **routes.js**: GET /, GET /buddy
+    - **server.js**: *see _Usage_ section below*
+    - **routes.js**: GET /list
+    - *public/*
+      - **index.html**
 
-    - *subapp1/*
+    - *subapp/*
       - **routes.js**: GET /, POST /
 
-      - *subapp2/*
+      - *subsubapp/*
         - > **middleware.js**
         - > **routes.js**: GET /, GET /last
 
-Routes exposed by the structure above
-------
 
-* GET  /
-* GET  /buddy
+### API exposed
 
-* GET  /subapp1
-* POST /subapp1
+* GET  /        _(serves index.html)_
+* GET  /list
 
-* GET  /subapp1/subapp2
-* GET  /subapp1/subapp2/last
+* GET  /subapp
+* POST /subapp
+
+* GET  /subapp/subsubapp
+* GET  /subapp/subsubapp/last
 
 
-Structure of routes.js, environment.js, middleware.js
+Concepts
 ---------
 
-### routes.js
 
-    module.exports = function (app, mountPath) {
-        app.get("/", function (req, res, next) { res.send("hey"); });
-    }
+### Bigger apps composed of small apps
 
-### middleware.js
+Every subapp is a complete node.js app unto itself (without being listened on).
 
-    module.exports = function (app, mountPath) {
-        app.use(function (req, res, next) { next(); });
-    }
+It can be pulled out and placed anywhere in the overall directory structure,
+to make it available on that relative url with respect to the root.
 
-### environment.js
+Every subapp folder can be used as a separated app.
+Hence, the rest api exposed by the apps is based on the directory structure and 
+placement of the apps.
 
-    module.exports = function (app, mountPath) {
+
+### What makes a subapp?
+
+A regular folder becomes a valid subapp if it has one of the following:
+
+* An environment settings module with the name `environment.js`
+  (can be changed by options passed or `moduleNames.environment` property in `apper.json`)
+* A middleware module with the name `middleware.js`
+  (can be changed by options passed or `moduleNames.middleware` property in `apper.json`)
+* A static content folder with the name `public`
+  (can be changed by options passed or `staticContentPath` property in `apper.json`)
+* A routes module with the name `routes.js`
+  (can be changed by options passed or `moduleNames.routes` property in `apper.json`)
+
+
+### Order of initialization
+
+The following things get initialized on the subapp in order:
+
+* Environment module gets loaded to set environment settings using `app.set` 
+* Middleware module gets loaded to setup middleware functions using `app.use`
+* Static content folder gets exposed on subapp's url
+  (the folder hierarchy containing the subapp)
+* Routes get loaded that respond to paths _other_ than those found in static
+  content.
+
+
+Usage
+-----
+
+### Structure of modules
+
+Get an Express-based app object and run express methods like 
+`app.set`, `app.use`, `app.get`, `app.post`, etc. on it.
+
+#### environment.js
+
+    module.exports = function (app) {
         app.set("property", "value");
     }
 
+#### middleware.js
 
-And guess what
----------
+    module.exports = function (app) {
+        app.use(function (req, res, next) {
+            next();
+        });
+    }
 
-Every subapp is a complete node.js app unto itself.
+#### routes.js
 
-It can have a package.json, its dependencies are respected,
-it can be pulled out and placed anywhere in the overall directory structure,
-or even used as a separated app (that's the whole point, actually).
+    module.exports = function (app) {
+        app.get("/", function (req, res) {
+            res.send("hey");
+        });
+    }
 
-The rest api is entirely based on the directory structure, on what app lies where.
+
+Configuration
+-------------
+
+`apper.json` placed in root or any subapp directory controls the following
+configuration for the respective app:
+* `moduleNames`
+  * `environment`
+    Environment module file name for the current app (omit `.js`)
+  * `middleware`
+    Middleware module file name for the current app (omit `.js`)
+  * `routes`
+    Routes module file name for the current app (omit `.js`)
+* `staticContentPath`
+  Static content directory name for the current app
+* `dirToIgnore`
+  List of directories to not consider as subapps in the current app's directory
+
+
+Tests
+-----
+
+Install `mocha`
+
+    npm install -g mocha
+
+In the project directory, run
+
+    mocha
+
+
+License
+-------
+
+MIT
+
+
+
+
+
+
+
