@@ -48,7 +48,7 @@ describe('app.init', function (){
             .expect("haha", done);
     });
     
-    it("should serve index.html if present, at root url", function (done) {
+    it.skip("should serve index.html if present, at root url", function (done) {
         request(expressApp)
             .get("/")
             .expect("index", done);
