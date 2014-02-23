@@ -3,5 +3,6 @@
     "moduleNames": {
         "environment": "env",
         "middleware": "mid"
-    }
+    },
+    "staticContentPath": "www"
 }
