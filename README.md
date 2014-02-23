@@ -3,6 +3,7 @@ apper
 
 Plug and play, restful, real-time, lean app development in node.js
 
+![Build Status on Travis CI](https://api.travis-ci.org/anupbishnoi/apper.png "https://travis-ci.org/anupbishnoi/apper")
 
 Install
 -------
