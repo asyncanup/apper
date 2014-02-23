@@ -32,11 +32,11 @@ Moving a subapp directory just changes its relative URL from the base app.
       - **routes.js**: GET /, POST /
 
       - *subsubapp/*
-        - > **middleware.js**
-        - > **routes.js**: GET /, GET /last
+        - **middleware.js**
+        - **routes.js**: GET /, GET /last
 
 
-### API exposed
+### API exposed by the directory structure above
 
 * GET  /        _(serves index.html)_
 * GET  /list
@@ -51,22 +51,9 @@ Moving a subapp directory just changes its relative URL from the base app.
 Concepts
 ---------
 
+### What makes an app?
 
-### Bigger apps composed of small apps
-
-Every subapp is a complete node.js app unto itself (without being listened on).
-
-It can be pulled out and placed anywhere in the overall directory structure,
-to make it available on that relative url with respect to the root.
-
-Every subapp folder can be used as a separated app.
-Hence, the rest api exposed by the apps is based on the directory structure and 
-placement of the apps.
-
-
-### What makes a subapp?
-
-A regular folder becomes a valid subapp if it has one of the following:
+A regular folder becomes a valid app if it has one of the following:
 
 * An environment settings module with the name `environment.js`
   (can be changed by options passed or `moduleNames.environment` property in `apper.json`)
@@ -77,8 +64,7 @@ A regular folder becomes a valid subapp if it has one of the following:
 * A routes module with the name `routes.js`
   (can be changed by options passed or `moduleNames.routes` property in `apper.json`)
 
-
-### Order of initialization
+#### Order of initialization of above-mentioned modules
 
 The following things get initialized on the subapp in order:
 
@@ -88,6 +74,23 @@ The following things get initialized on the subapp in order:
   (the folder hierarchy containing the subapp)
 * Routes get loaded that respond to paths _other_ than those found in static
   content.
+
+
+### Bigger apps composed of small apps
+
+The root app can contain sub-directories which are complete apps unto themselves. 
+These directories become subapps of the root app.
+
+Subapps can be pulled out and placed anywhere in the overall directory structure.
+This would make them available on the new relative url with respect to the root.
+
+Every subapp folder can be started as a separated app by including `server.js` in there.
+
+Due to the directory hierarchy based mounting of subapps, the base URL paths of
+all subapps are decided by their position in the directory hierarchy.
+
+The subapps can then register for any relative URL route after their base URL and
+handle requests accordingly.
 
 
 Usage
