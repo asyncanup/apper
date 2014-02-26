@@ -5,7 +5,7 @@ module.exports = function (app) {
     });
     
     app.socketIO.on("connection", function (socket) {
-        app.log("connected to socket.io");
-        // console.log(socket);
+        socket.emit("haha");
+        console.log("root");
     });
 };

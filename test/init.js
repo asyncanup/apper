@@ -1,13 +1,8 @@
 var assert = require("assert"),
     request = require("supertest"),
-    apper = require("../");
+    app = require("./sample/server");
 
 describe('app.init', function (){
-    var appPath = require("path").join(__dirname, "sample"),
-        app = apper({ path: appPath });
-        
-    app.init();
-    
     var expressApp = app.expressApp;
 
     it("should have the underlying express object as property", function () {
@@ -39,17 +34,17 @@ describe('app.init', function (){
             }
         });
         
-        request(expressApp).get("/random").end();
+        request(app.server).get("/random").end();
     });
     
     it("should serve static content in public folder", function (done) {
-        request(expressApp)
+        request(app.server)
             .get("/haha.txt")
             .expect("haha", done);
     });
     
     it.skip("should serve index.html if present, at root url", function (done) {
-        request(expressApp)
+        request(app.server)
             .get("/")
             .expect("index", done);
     });
