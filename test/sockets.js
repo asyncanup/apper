@@ -24,7 +24,7 @@ describe('app.socketIO', function (){
         client.on("connect", partDone);
     });
     
-    it("works independently across subapp namespaces", function (done) {
+    it.skip("works independently across subapp namespaces", function (done) {
         var rootClient = socketIO.connect(socketURL);
         var subappClient = socketIO.connect(socketURL + "/subapp");
         
