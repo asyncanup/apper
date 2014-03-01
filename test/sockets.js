@@ -15,31 +15,32 @@ describe('app.socketIO', function (){
             .expect(200, done);
     });
     
-    it("is able to connect", function (done) {
-        var client = socketIO.connect(socketURL);
-        
-        var partDone = _.after(2, done);
-        
-        app.expressApp.socketIO.on("connection", partDone);
-        client.on("connect", partDone);
-    });
-    
-    it.skip("works independently across subapp namespaces", function (done) {
+    it("works independently across subapp namespaces", function (done) {
         var rootClient = socketIO.connect(socketURL);
         var subappClient = socketIO.connect(socketURL + "/subapp");
         
         var partDone = _.after(2, done),
-            throwErr = function () {
-                done(new Error("Mixed up namespaces"));
+            error = function () {
+                done(new Error("Didn't work"));
             };
         
-        app.expressApp.socketIO.emit("hi");
-        app.subapps["subapp"].expressApp.socketIO.emit("hello");
+        var partConnected = _.after(4, emitStuff);
+        
+        function emitStuff() {
+            app.expressApp.socketIO.emit("hi");
+            app.subapps.subapp.expressApp.socketIO.emit("hello");
+        }
+        
+        app.expressApp.socketIO.on("connection", partConnected);
+        app.subapps.subapp.expressApp.socketIO.on("connection", partConnected);
+        
+        rootClient.on("connect", partConnected);
+        subappClient.on("connect", partConnected);
         
         rootClient.on("hi", partDone);
         subappClient.on("hello", partDone);
         
-        rootClient.on("hello", throwErr);
-        subappClient.on("hi", throwErr);
+        rootClient.on("hello", error);
+        subappClient.on("hi", error);
     });
 });

@@ -43,9 +43,9 @@ describe('app.init', function (){
             .expect("haha", done);
     });
     
-    it.skip("should serve index.html if present, at root url", function (done) {
+    it("should serve from route, even if index.html is present in public", function (done) {
         request(app.server)
             .get("/")
-            .expect("index", done);
+            .expect("route wala index", done);
     });
 });

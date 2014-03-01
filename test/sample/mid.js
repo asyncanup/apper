@@ -6,6 +6,6 @@ module.exports = function (app) {
     
     app.socketIO.on("connection", function (socket) {
         socket.emit("haha");
-        console.log("root");
+        // console.log("root");
     });
 };
