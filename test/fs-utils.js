@@ -13,8 +13,6 @@ describe("fs-utils", function () {
             "should skip directories to ignore " +
                 "passed as argument, listed in apper.json, and in apper defaults",
             function () {
-                
-                console.log(app);
                 assert.deepEqual(fsUtils.subAppNames(app), ["subapp"]);
             }
         );
