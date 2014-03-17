@@ -28,11 +28,11 @@ describe('app.socketIO', function (){
         
         function emitStuff() {
             app.expressApp.socketIO.emit("hi");
-            app.subapps.subapp.expressApp.socketIO.emit("hello");
+            app.subApps.subapp.expressApp.socketIO.emit("hello");
         }
         
         app.expressApp.socketIO.on("connection", partConnected);
-        app.subapps.subapp.expressApp.socketIO.on("connection", partConnected);
+        app.subApps.subapp.expressApp.socketIO.on("connection", partConnected);
         
         rootClient.on("connect", partConnected);
         subappClient.on("connect", partConnected);

@@ -4,5 +4,5 @@
         "environment": "env",
         "middleware": "mid"
     },
-    "staticContentPath": "www"
+    "staticContentName": "www"
 }
