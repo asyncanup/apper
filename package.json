@@ -10,7 +10,7 @@
   "dependencies": {
     "express": "*",
     "debug": "*",
-    "socket.io": "~0.8.1",
+    "socket.io": "*",
     "underscore": "*",
     "portfinder": "*"
   },
