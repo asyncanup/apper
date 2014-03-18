@@ -2,7 +2,7 @@
   "name": "apper",
   "description": "Convention-based restful app development in node.js",
   "homepage": "https://github.com/anupbishnoi/apper",
-  "version": "2.1.1",
+  "version": "2.1.2",
   "author": {
     "name": "Anup Bishnoi",
     "email": "pixelsallover@gmail.com"
