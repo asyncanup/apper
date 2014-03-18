@@ -9,6 +9,7 @@ var app = require("./sample/server"),
     socketOpts = { "force new connection" : true };
 
 describe('app.socketIO', function (){
+    this.timeout(5000);
     
     it("should serve socket.io static files from root", function (done) {
         request(app.server)
@@ -43,8 +44,6 @@ describe('app.socketIO', function (){
     });
     
     it("loads sockets module based on apper.json", function (done) {
-        var rootClient = socketIO.connect(socketURL, socketOpts);
-        
-        rootClient.on("lol", done);
+        socketIO.connect(socketURL, socketOpts).on("lol", done);
     });
 });
