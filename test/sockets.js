@@ -5,7 +5,8 @@ var assert = require("assert"),
     
 var app = require("./sample/server"),
     serverAddress = app.server.address(),
-    socketURL = "http://localhost:" + serverAddress.port;
+    socketURL = "http://localhost:" + serverAddress.port,
+    socketOpts = { "force new connection" : true };
 
 describe('app.socketIO', function (){
     
@@ -16,23 +17,20 @@ describe('app.socketIO', function (){
     });
     
     it("works independently across subapp namespaces", function (done) {
-        var rootClient = socketIO.connect(socketURL);
-        var subappClient = socketIO.connect(socketURL + "/subapp");
+        var rootClient = socketIO.connect(socketURL, socketOpts);
+        var subappClient = socketIO.connect(socketURL + "/subapp", socketOpts);
         
         var partDone = _.after(2, done),
             error = function () {
                 done(new Error("Didn't work"));
             };
         
-        var partConnected = _.after(4, emitStuff);
+        var partConnected = _.after(2, emitStuff);
         
         function emitStuff() {
             app.expressApp.socketIO.emit("hi");
             app.subApps.subapp.expressApp.socketIO.emit("hello");
         }
-        
-        app.expressApp.socketIO.on("connection", partConnected);
-        app.subApps.subapp.expressApp.socketIO.on("connection", partConnected);
         
         rootClient.on("connect", partConnected);
         subappClient.on("connect", partConnected);
@@ -42,5 +40,11 @@ describe('app.socketIO', function (){
         
         rootClient.on("hello", error);
         subappClient.on("hi", error);
+    });
+    
+    it("loads sockets module based on apper.json", function (done) {
+        var rootClient = socketIO.connect(socketURL, socketOpts);
+        
+        rootClient.on("lol", done);
     });
 });

@@ -5,10 +5,10 @@ var assert = require("assert"),
     
 var app = require("./sample/server"),
     serverAddress = app.server.address(),
-    socketURL = "http://localhost:" + serverAddress.port;
+    socketURL = "http://localhost:" + serverAddress.port,
+    socketOpts = { "force new connection": true };
 
 describe('app-log', function (){
-    
     it("should handle /_logs route for server logs", function (done) {
         request(app.server)
             .get("/_logs")
@@ -25,6 +25,11 @@ describe('app-log', function (){
                 assert(_.findWhere(json , {
                     mountPath: "",
                     data: "Loaded middleware."
+                }));
+                
+                assert(_.findWhere(json , {
+                    mountPath: "",
+                    data: "Loaded sockets."
                 }));
                 
                 assert(_.findWhere(json , {
@@ -47,28 +52,30 @@ describe('app-log', function (){
     });
     
     it("accepts logs from clients using sockets", function (done) {
-        var client = socketIO.connect(socketURL, {
-            "force new connection": true
-        });
+        var client = socketIO.connect(socketURL, socketOpts),
+            logData = { key: "value", _confirm: true };
         
         client.on("connect", function () {
-            client.emit("_log", { data: "some data" });
+            client.emit("_log", logData);
         });
     
-        setTimeout(function () {
+        client.on("log confirmation", function (confirmationData) {
+            Object.keys(logData).forEach(function (key) {
+                assert.equal(logData[key], confirmationData[key]);
+            });
+            
             request(app.server)
                 .get("/_logs")
                 .end(function (err, reqRes) {
                     if (err) { return done(err); }
                     
                     var json = reqRes.res.body;
-                    assert(_.findWhere(json, {
-                        data: "some data",
+                    assert(_.findWhere(json, _.extend({}, logData, {
                         _client: client.socket.sessionid
-                    }));
+                    })));
                     
                     done();
                 });
-        }, 200);
+        });
     });
 });

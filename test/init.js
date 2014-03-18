@@ -26,15 +26,20 @@ describe('app.init', function (){
     });
     
     it("should load the middleware for app", function (done) {
-        expressApp.use(function (req) {
-            if (req.middlewareProperty) {
-                done();
-            } else {
-                throw "req.middlewareProperty not found";
-            }
+        expressApp.get("/middleware", function (req, res) {
+            res.end(req.middlewareProperty);
         });
         
-        request(app.server).get("/random").end();
+        request(app.server).get("/middleware").expect("lol", done);
+    });
+    
+    it("should load the middleware for post requests", function (done) {
+        expressApp.post("/post", function (req, res) {
+            res.end(req.body.data);
+        });
+        
+        var body = { data: "some data" };
+        request(app.server).post("/post").send(body).expect(body.data, done);
     });
     
     it("should serve static content in public folder", function (done) {
