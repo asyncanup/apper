@@ -1,10 +1,9 @@
 var assert = require("assert"),
-    express = require("express"),
-    apper = require("../");
+    path = require("path");
 
 describe('app', function (){
     it("should have log, init, start methods", function () {
-        var app = apper();
+        var app = require("./app-maker")();
         
         assert.equal(typeof app.log, "function");
         assert.equal(typeof app.init, "function");
@@ -12,20 +11,31 @@ describe('app', function (){
     });
     
     it("should have its path set by argument to constructor", function () {
-        var path = require("path").join(__dirname, "sample");
+        var appPath = path.join(__dirname, "sample"),
+            app = require("../")({ path: appPath });
         
-        var app = apper({
-            path: path
-        });
-        
-        assert.equal(app.path, path);
+        assert.equal(app.path, appPath);
     });
     
-    it('should have underlying express app as property', function (){
-        var app = apper();
+    describe(".moduleNames", function () {
+        var appPath = path.join(__dirname, "sample");
         
-        // assert.equal(typeof app.expressApp, "function");
-        // assert.equal(typeof app.expressApp.express, express);
+        var app = require("../")({
+            path: appPath,
+            moduleNames: { middleware: "middlewares" }
+        });
         
+        it("should come from passed arguments first", function () {
+            assert.equal(app.moduleNames.middleware, "middlewares");
+        });
+        
+        it("should come from apper.json next", function () {
+            assert.equal(app.moduleNames.environment, "env");
+        });
+        
+        it("should come from apper's defaults last", function () {
+            assert.equal(app.moduleNames.routes, "routes");
+        });
     });
+
 });

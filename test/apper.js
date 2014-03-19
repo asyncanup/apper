@@ -1,10 +1,9 @@
 var assert = require("assert");
 
-var apper = require("../"),
-    App = require("../lib/app");
+describe("apper", function () {
+    var apper = require("../"),
+        App = require("../lib/app");
 
-describe("exports", function () {
-    
     it("should be a function", function () {
         assert.equal("function", typeof apper);
     });
