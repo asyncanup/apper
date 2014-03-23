@@ -41,7 +41,8 @@ describe('init/routes-static', function () {
                 .end(function (err, reqRes) {
                     var html = reqRes.res.text;
                     
-                    console.log(html);
+                    assert(/dep\.js\ contents/.test(html));
+                    
                     done();
                 });
     });
