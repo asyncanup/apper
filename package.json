@@ -8,11 +8,14 @@
     "email": "pixelsallover@gmail.com"
   },
   "dependencies": {
-    "express": "*",
-    "debug": "*",
-    "socket.io": "*",
-    "underscore": "*",
-    "portfinder": "*"
+    "cheerio": "^0.13.1",
+    "debug": "^0.7.4",
+    "underscore": "^1.6.0",
+    "portfinder": "^0.2.1",
+    "socket.io": "^0.9.16",
+    "express": "^3.5.0",
+    "requirejs": "^2.1.11",
+    "amdefine": "^0.1.0"
   },
   "keywords": [
     "convention",
@@ -42,7 +45,7 @@
   },
   "license": "MIT",
   "devDependencies": {
-    "supertest": "~0.9.0",
-    "socket.io-client": "~0.8.1"
+    "supertest": "^0.10.0",
+    "socket.io-client": "^0.9.16"
   }
 }
