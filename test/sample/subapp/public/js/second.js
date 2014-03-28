@@ -1,2 +1,1 @@
-/* second.js contents */
-console.log("js/another");
+console.log("js/another: second.js contents");

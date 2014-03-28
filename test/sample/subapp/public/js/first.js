@@ -1,2 +1,1 @@
-/* first.js contents */
-console.log("js/main");
+console.log("js/main: first.js contents");
