@@ -14,7 +14,8 @@
     "socket.io": "^0.9.16",
     "express": "^3.5.0",
     "requirejs": "^2.1.11",
-    "amdefine": "^0.1.0"
+    "amdefine": "^0.1.0",
+    "uglify-js": "^2.4.13"
   },
   "keywords": [
     "convention",
