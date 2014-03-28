@@ -8,7 +8,6 @@
     "email": "pixelsallover@gmail.com"
   },
   "dependencies": {
-    "cheerio": "^0.13.1",
     "debug": "^0.7.4",
     "underscore": "^1.6.0",
     "portfinder": "^0.2.1",
