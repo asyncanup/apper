@@ -2,20 +2,20 @@
   "name": "apper",
   "description": "Convention-based restful app development in node.js",
   "homepage": "https://github.com/anupbishnoi/apper",
-  "version": "2.1.3",
+  "version": "2.2.0",
   "author": {
     "name": "Anup Bishnoi",
     "email": "pixelsallover@gmail.com"
   },
   "dependencies": {
-    "cheerio": "^0.13.1",
     "debug": "^0.7.4",
     "underscore": "^1.6.0",
     "portfinder": "^0.2.1",
     "socket.io": "^0.9.16",
     "express": "^3.5.0",
     "requirejs": "^2.1.11",
-    "amdefine": "^0.1.0"
+    "amdefine": "^0.1.0",
+    "uglify-js": "^2.4.13"
   },
   "keywords": [
     "convention",
