@@ -8,14 +8,14 @@
     "email": "pixelsallover@gmail.com"
   },
   "dependencies": {
-    "debug": "^0.7.4",
-    "underscore": "^1.6.0",
-    "portfinder": "^0.2.1",
-    "socket.io": "^0.9.16",
-    "express": "^3.5.0",
-    "requirejs": "^2.1.11",
-    "amdefine": "^0.1.0",
-    "uglify-js": "^2.4.13"
+    "debug": "0.7.4",
+    "underscore": "1.6.0",
+    "portfinder": "0.2.1",
+    "socket.io": "0.9.16",
+    "express": "3.5.0",
+    "requirejs": "2.1.11",
+    "amdefine": "0.1.0",
+    "uglify-js": "2.4.13"
   },
   "keywords": [
     "convention",
