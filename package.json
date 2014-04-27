@@ -45,7 +45,7 @@
   },
   "license": "MIT",
   "devDependencies": {
-    "supertest": "^0.10.0",
-    "socket.io-client": "^0.9.16"
+    "supertest": "0.10.0",
+    "socket.io-client": "0.9.16"
   }
 }
