@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 
-var argv = require('minimist')(process.argv.slice(2));
+var argv = require('minimist')(process.argv.slice(2)),
+    path = require('path');
 
 if (argv.h || argv.help) {
     console.log([
@@ -14,15 +15,15 @@ if (argv.h || argv.help) {
     process.exit();
 }
 
-var opts = {
-    root: argv._[0],
-    port: argv.p || argv.port,
-    host: argv.a || argv.address || '0.0.0.0'
-};
+var rootPath = argv._[0],
+    port = argv.p || argv.port,
+    host = argv.a || argv.address || '0.0.0.0';
+
+if (rootPath) rootPath = path.resolve(rootPath);
 
 // Start server
-require('../index')(opts);
-
+var app = require('../index')({ path: rootPath });
+app.start(port, host);
 
 if (process.platform !== 'win32') {
     // Signal handlers don't work on Windows.
