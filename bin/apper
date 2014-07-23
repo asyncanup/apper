@@ -1,0 +1,33 @@
+#!/usr/bin/env node
+
+var argv = require('minimist')(process.argv.slice(2));
+
+if (argv.h || argv.help) {
+    console.log([
+        "usage: apper [path] [options]",
+        "",
+        "options:",
+        "  -p --port          Port to use [8000]",
+        "  -a --address       Address to use [0.0.0.0]",
+        "  -h --help          Print this list and exit."
+    ].join('\n'));
+    process.exit();
+}
+
+var opts = {
+    root: argv._[0],
+    port: argv.p || argv.port,
+    host: argv.a || argv.address || '0.0.0.0'
+};
+
+// Start server
+require('../index')(opts);
+
+
+if (process.platform !== 'win32') {
+    // Signal handlers don't work on Windows.
+    process.on('SIGINT', function () {
+        log('Apper server stopped.'.red);
+        process.exit();
+    });
+}
