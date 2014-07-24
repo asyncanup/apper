@@ -6,7 +6,6 @@ module.exports = function () {
     });
     
     app.log.off();
-    app.init();
     
     return app;
 };
