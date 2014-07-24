@@ -22,7 +22,7 @@ var rootPath = argv._[0],
 if (rootPath) rootPath = path.resolve(rootPath);
 
 // Start server
-var app = require('../index')({ path: rootPath });
+var app = require('../index')({ path: rootPath, toOpenBrowser: true });
 app.start(port, host);
 
 if (process.platform !== 'win32') {
