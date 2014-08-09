@@ -6,7 +6,6 @@ var assert = require("assert"),
 describe('app-log', function (){
     it("should handle /_logs route for root server logs", function (done) {
         var app = require("./app-maker")();
-    
         request(app.server)
             .get("/_logs")
             .end(function (err, reqRes) {
@@ -14,25 +13,16 @@ describe('app-log', function (){
                 
                 var json = reqRes.res.body;
                 
-                assert(_.findWhere(json , {
-                    mountPath: "",
-                    data: "Loaded environment."
-                }));
-                
-                assert(_.findWhere(json , {
-                    mountPath: "",
-                    data: "Loaded middleware."
-                }));
-                
-                assert(_.findWhere(json , {
-                    mountPath: "",
-                    data: "Loaded sockets."
-                }));
-                
-                assert(_.findWhere(json , {
-                    mountPath: "",
-                    data: "Loaded routes."
-                }));
+                [
+                    "Loaded environment.",
+                    "Loaded middleware.",
+                    "Loaded sockets.",
+                    "Loaded routes."
+                ].forEach(function (msg) {
+                    assert(_.some(json, function (logItem) {
+                        return logItem.mountPath === "" && logItem.data[0] === msg;
+                    }));
+                });
                 
                 done();
             });
@@ -40,7 +30,6 @@ describe('app-log', function (){
     
     it("should handle /subapp/_logs route for subapp server logs", function (done) {
         var app = require("./app-maker")();
-    
         request(app.server)
             .get("/subapp/_logs")
             .end(function (err, reqRes) {
@@ -48,15 +37,14 @@ describe('app-log', function (){
                 
                 var json = reqRes.res.body;
                 
-                assert(_.findWhere(json , {
-                    mountPath: "/subapp",
-                    data: "Loaded middleware."
-                }));
-                
-                assert(_.findWhere(json , {
-                    mountPath: "/subapp",
-                    data: "Loaded routes."
-                }));
+                [
+                    "Loaded middleware.",
+                    "Loaded routes."
+                ].forEach(function (msg) {
+                    assert(_.some(json, function (logItem) {
+                        return logItem.mountPath === "/subapp" && logItem.data[0] === msg;
+                    }));
+                });
                 
                 done();
             });
@@ -64,20 +52,24 @@ describe('app-log', function (){
     
     it("accepts logs from clients using sockets", function (done) {
         var app = require("./app-maker")();
-        
         app.start(function () {
             var serverAddress = app.server.address(),
-                socketURL = "http://localhost:" + serverAddress.port,
-                socketOpts = { "force new connection": true };
+                socketURL = "http://localhost:" + serverAddress.port;
             
-            var client = socketIO.connect(socketURL, socketOpts),
-                logData = { key: "value", _confirm: true };
+            var client = socketIO.connect(socketURL),
+                logData = { key: "value" };
+            
+            app.socketIO.on("connection", function (socket) {
+                socket.on("_log", function (logData) {
+                    socket.emit("_log_confirmed", logData);
+                });
+            });
             
             client.on("connect", function () {
                 client.emit("_log", logData);
             });
         
-            client.on("log confirmation", function (confirmationData) {
+            client.on("_log_confirmed", function (confirmationData) {
                 Object.keys(logData).forEach(function (key) {
                     assert.equal(logData[key], confirmationData[key]);
                 });
@@ -88,10 +80,11 @@ describe('app-log', function (){
                         if (err) { return done(err); }
                         
                         var json = reqRes.res.body;
-                        assert(_.findWhere(json, _.extend({}, logData, {
-                            _client: client.socket.sessionid
-                        })));
-                        
+
+                        assert(_.some(json, function (logItem) {
+                            return _.isEqual(logItem.data[0], logData) && logItem.client === client.socket.sessionid;
+                        }));
+
                         done();
                     });
             });

@@ -45,7 +45,6 @@
   "scripts": {
     "prepublish": "npm prune",
     "test": "mocha --recursive",
-    "start": "node server.js",
     "doc": "docco lib/*.js"
   },
   "engines": {

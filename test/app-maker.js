@@ -7,7 +7,7 @@ module.exports = function () {
         port: 8000 + _.uniqueId()
     });
     
-    app.log.off();
+    app.log.disable();
     
     return app;
 };
