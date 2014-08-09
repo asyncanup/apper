@@ -4,7 +4,8 @@ module.exports = function (app) {
         next();
     });
     
-    app.use(app.express.bodyParser());
+    app.use(app.express.urlencoded());
+    app.use(app.express.json());
     
     app.socketIO.on("connection", function (socket) {
         socket.emit("haha");
