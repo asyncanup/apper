@@ -166,7 +166,7 @@ Include <code>&lt;script src='/socket.io/socket.io.js'&gt;&lt;/script&gt;</code>
 <p>Get an Express-based app object and run express methods like 
 <code>app.set</code>, <code>app.use</code>, <code>app.get</code>, <code>app.post</code>, etc. on it.</p>
 
-<p>For WebSocket requests, <code>app.socketIO</code> provides the same functionality as
+<p>For WebSocket requests, <code>app.sockets</code> provides the same functionality as
 <code>io.sockets</code> using [socket.io] [</p>
 
 <h4 id="environmentjs">environment.js</h4>
@@ -191,7 +191,7 @@ Include <code>&lt;script src='/socket.io/socket.io.js'&gt;&lt;/script&gt;</code>
 <h4 id="socketsjs">sockets.js</h4>
 
 <pre><code>module.exports = function (app) {
-    app.socketIO.on("connection", function (socket) {
+    app.sockets.on("connection", function (socket) {
 
         socket.on("hey", function (name) {
             socket.emit("Hey " + name + "!");
