@@ -1,0 +1,326 @@
+<!DOCTYPE html><html lang="en"><head><title>fs-utils</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="groc-relative-root" content=""><meta name="groc-document-path" content="fs-utils"><meta name="groc-project-path" content="lib/fs-utils.js"><meta name="groc-github-url" content="https://github.com/anupbishnoi/apper"><link rel="stylesheet" type="text/css" media="all" href="assets/style.css"><script type="text/javascript" src="assets/behavior.js"></script><body><div id="meta"><div class="file-path"><a href="https://github.com/anupbishnoi/apper/blob/master/lib/fs-utils.js">lib/fs-utils.js</a></div></div><div id="document"><div class="segment"><div class="code"><div class="wrapper"><span class="kd">var</span> <span class="nx">fs</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&quot;fs&quot;</span><span class="p">),</span>
+    <span class="nx">path</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&quot;path&quot;</span><span class="p">),</span>
+    <span class="nx">json5</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&quot;json5&quot;</span><span class="p">);</span>
+
+<span class="kd">var</span> <span class="nx">_</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&quot;underscore&quot;</span><span class="p">),</span>
+    <span class="nx">requirejs</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&quot;requirejs&quot;</span><span class="p">),</span>
+    <span class="nx">UglifyJS</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&quot;uglify-js&quot;</span><span class="p">);</span>
+
+<span class="nx">exports</span><span class="p">.</span><span class="nx">subAppNames</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">app</span><span class="p">)</span> <span class="p">{</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>directories to ignore can be custom for each instance of App</p></div></div><div class="code"><div class="wrapper">    <span class="kd">var</span> <span class="nx">dirToIgnore</span> <span class="o">=</span> <span class="nx">app</span><span class="p">.</span><span class="nx">dirToIgnore</span><span class="p">.</span><span class="nx">concat</span><span class="p">(</span><span class="nx">app</span><span class="p">.</span><span class="nx">staticContentName</span><span class="p">),</span>
+        <span class="nx">appPath</span> <span class="o">=</span> <span class="nx">app</span><span class="p">.</span><span class="nx">path</span><span class="p">,</span>
+        <span class="nx">subapps</span> <span class="o">=</span> <span class="p">[],</span>
+        <span class="nx">log</span> <span class="o">=</span> <span class="nx">app</span><span class="p">.</span><span class="nx">log</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="nx">app</span><span class="p">);</span>
+
+    <span class="kd">var</span> <span class="nx">files</span><span class="p">;</span>
+    <span class="k">try</span> <span class="p">{</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>read the list of files in path</p></div></div><div class="code"><div class="wrapper">        <span class="nx">files</span> <span class="o">=</span> <span class="nx">fs</span><span class="p">.</span><span class="nx">readdirSync</span><span class="p">(</span><span class="nx">appPath</span><span class="p">);</span>
+    <span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Error reading directory:&quot;</span><span class="p">,</span> <span class="nx">appPath</span><span class="p">,</span> <span class="nx">e</span><span class="p">.</span><span class="nx">message</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">files</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">files</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>filter them based on ignored list,
+and remove hidden files/folders as well</p></div></div><div class="code"><div class="wrapper">            <span class="p">.</span><span class="nx">filter</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">fileName</span><span class="p">)</span> <span class="p">{</span>
+                <span class="k">return</span> <span class="nx">dirToIgnore</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="nx">fileName</span><span class="p">)</span> <span class="o">===</span> <span class="o">-</span><span class="mi">1</span> <span class="o">&amp;&amp;</span> <span class="nx">fileName</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">!==</span> <span class="s2">&quot;.&quot;</span><span class="p">;</span>
+            <span class="p">})</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>and for the rest,</p></div></div><div class="code"><div class="wrapper">            <span class="p">.</span><span class="nx">forEach</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">fileName</span><span class="p">)</span> <span class="p">{</span>
+                <span class="kd">var</span> <span class="nx">filePath</span> <span class="o">=</span> <span class="nx">path</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="nx">appPath</span><span class="p">,</span> <span class="nx">fileName</span><span class="p">);</span>
+                <span class="kd">var</span> <span class="nx">fileStats</span><span class="p">;</span>
+                <span class="k">try</span> <span class="p">{</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>get their filesystem stats</p></div></div><div class="code"><div class="wrapper">                    <span class="nx">fileStats</span> <span class="o">=</span> <span class="nx">fs</span><span class="p">.</span><span class="nx">statSync</span><span class="p">(</span><span class="nx">filePath</span><span class="p">);</span>
+                <span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
+                    <span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Error reading file stats for:&quot;</span><span class="p">,</span> <span class="nx">filePath</span><span class="p">,</span> <span class="nx">e</span><span class="p">.</span><span class="nx">message</span><span class="p">);</span>
+                <span class="p">}</span>
+                <span class="k">if</span> <span class="p">(</span><span class="nx">fileStats</span> <span class="o">&amp;&amp;</span> <span class="nx">fileStats</span><span class="p">.</span><span class="nx">isDirectory</span><span class="p">())</span> <span class="p">{</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>and take the remaining directories as subapps</p></div></div><div class="code"><div class="wrapper">                    <span class="nx">subapps</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">fileName</span><span class="p">);</span>
+                <span class="p">}</span>
+            <span class="p">});</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="nx">subapps</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="nx">exports</span><span class="p">.</span><span class="nx">getModulePath</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">app</span><span class="p">,</span> <span class="nx">type</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">app</span><span class="p">.</span><span class="nx">moduleNames</span><span class="p">[</span><span class="nx">type</span><span class="p">])</span> <span class="p">{</span>
+        <span class="k">throw</span> <span class="k">new</span> <span class="nb">Error</span><span class="p">(</span><span class="s2">&quot;No moduleName for module type: &quot;</span> <span class="o">+</span> <span class="nx">type</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="kd">var</span> <span class="nx">modulePath</span> <span class="o">=</span> <span class="nx">path</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="nx">app</span><span class="p">.</span><span class="nx">path</span><span class="p">,</span> <span class="nx">app</span><span class="p">.</span><span class="nx">moduleNames</span><span class="p">[</span><span class="nx">type</span><span class="p">]);</span>
+    
+    <span class="k">if</span> <span class="p">(</span><span class="nx">fs</span><span class="p">.</span><span class="nx">existsSync</span><span class="p">(</span><span class="nx">modulePath</span> <span class="o">+</span> <span class="s2">&quot;.js&quot;</span><span class="p">)</span> <span class="o">||</span> <span class="nx">fs</span><span class="p">.</span><span class="nx">existsSync</span><span class="p">(</span><span class="nx">modulePath</span><span class="p">))</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nx">modulePath</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="kc">null</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="nx">exports</span><span class="p">.</span><span class="nx">loadModule</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">app</span><span class="p">,</span> <span class="nx">modulePath</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">log</span> <span class="o">=</span> <span class="nx">app</span><span class="p">.</span><span class="nx">log</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="nx">app</span><span class="p">);</span>
+
+    <span class="kd">var</span> <span class="nx">loadedModule</span><span class="p">;</span>
+    <span class="k">try</span> <span class="p">{</span>
+        <span class="nx">loadedModule</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="nx">modulePath</span><span class="p">);</span>
+    <span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">log</span><span class="p">([</span><span class="s2">&quot;Error loading module:&quot;</span><span class="p">,</span> <span class="nx">modulePath</span><span class="p">,</span> <span class="nx">e</span><span class="p">.</span><span class="nx">stack</span><span class="p">].</span><span class="nx">join</span><span class="p">(</span><span class="s2">&quot;\n&quot;</span><span class="p">));</span>
+    <span class="p">}</span>
+    <span class="k">if</span> <span class="p">(</span><span class="k">typeof</span> <span class="nx">loadedModule</span> <span class="o">===</span> <span class="s2">&quot;function&quot;</span><span class="p">)</span> <span class="p">{</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>the module to be loaded must be a function</p></div></div><div class="code"><div class="wrapper">        <span class="nx">loadedModule</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="nx">app</span><span class="p">.</span><span class="nx">expressApp</span><span class="p">,</span> <span class="nx">app</span><span class="p">.</span><span class="nx">expressApp</span><span class="p">);</span>
+        <span class="k">return</span> <span class="kc">true</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
+<span class="p">};</span>
+
+
+<span class="kd">var</span> <span class="nx">loadedCache</span> <span class="o">=</span> <span class="p">{},</span>
+    <span class="nx">excludeFromCache</span> <span class="o">=</span> <span class="p">{};</span>
+
+<span class="nx">exports</span><span class="p">.</span><span class="nx">loadIndexFile</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">app</span><span class="p">,</span> <span class="nx">callback</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">indexFilePath</span> <span class="o">=</span> <span class="nx">path</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="nx">app</span><span class="p">.</span><span class="nx">staticContentPath</span><span class="p">,</span> <span class="s2">&quot;index.html&quot;</span><span class="p">),</span>
+        <span class="nx">log</span> <span class="o">=</span> <span class="nx">app</span><span class="p">.</span><span class="nx">log</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="nx">app</span><span class="p">);</span>
+    
+    <span class="k">if</span> <span class="p">(</span><span class="nx">loadedCache</span><span class="p">[</span><span class="nx">indexFilePath</span><span class="p">])</span> <span class="p">{</span>
+        <span class="nx">callback</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="nx">loadedCache</span><span class="p">[</span><span class="nx">indexFilePath</span><span class="p">]);</span>
+        <span class="k">return</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="nx">excludeFromCache</span><span class="p">[</span><span class="nx">indexFilePath</span><span class="p">])</span> <span class="p">{</span>
+        <span class="nx">callback</span><span class="p">(</span><span class="nx">excludeFromCache</span><span class="p">[</span><span class="nx">indexFilePath</span><span class="p">]);</span>
+        <span class="k">return</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Request for index file at: &quot;</span> <span class="o">+</span> <span class="nx">indexFilePath</span><span class="p">);</span>
+    <span class="nx">fs</span><span class="p">.</span><span class="nx">readFile</span><span class="p">(</span><span class="nx">indexFilePath</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">data</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Couldn&#39;t read index file at: &quot;</span> <span class="o">+</span> <span class="nx">indexFilePath</span><span class="p">);</span>
+            <span class="nx">excludeFromCache</span><span class="p">[</span><span class="nx">indexFilePath</span><span class="p">]</span> <span class="o">=</span> <span class="nx">err</span><span class="p">;</span>
+            <span class="nx">callback</span><span class="p">(</span><span class="nx">err</span><span class="p">);</span>
+            <span class="k">return</span><span class="p">;</span>
+        <span class="p">}</span>
+
+        <span class="kd">var</span> <span class="nx">code</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="nx">html</span><span class="o">:</span> <span class="nx">data</span><span class="p">.</span><span class="nx">toString</span><span class="p">()</span>
+        <span class="p">};</span>
+
+        <span class="kd">var</span> <span class="nx">scriptRegExp</span> <span class="o">=</span> <span class="sr">/&lt;script[^&gt;]*src=&quot;([^&quot;]+)&quot;[^&gt;]*&gt;&lt;\/script&gt;/gm</span><span class="p">,</span>
+            <span class="nx">requireRegExp</span> <span class="o">=</span> <span class="sr">/&lt;script[^&gt;]*data\-main=&quot;([^&quot;]+)&quot;[^&gt;]*&gt;&lt;\/script&gt;/gm</span><span class="p">,</span>
+            <span class="nx">styleRegExp</span> <span class="o">=</span> <span class="sr">/&lt;link[^&gt;]*rel=&quot;stylesheet&quot;[^&gt;]*href=&quot;([^&quot;]+)&quot;[^&gt;]*&gt;/gm</span><span class="p">;</span>
+
+        <span class="kd">var</span> <span class="nx">scriptElements</span> <span class="o">=</span> <span class="nx">getElements</span><span class="p">(</span><span class="nx">code</span><span class="p">.</span><span class="nx">html</span><span class="p">,</span> <span class="nx">scriptRegExp</span><span class="p">),</span>
+            <span class="nx">requireElements</span> <span class="o">=</span> <span class="nx">getElements</span><span class="p">(</span><span class="nx">code</span><span class="p">.</span><span class="nx">html</span><span class="p">,</span> <span class="nx">requireRegExp</span><span class="p">),</span>
+            <span class="nx">styleElements</span> <span class="o">=</span> <span class="nx">getElements</span><span class="p">(</span><span class="nx">code</span><span class="p">.</span><span class="nx">html</span><span class="p">,</span> <span class="nx">styleRegExp</span><span class="p">),</span>
+            <span class="nx">totalFiles</span> <span class="o">=</span> <span class="nx">scriptElements</span><span class="p">.</span><span class="nx">length</span> <span class="o">+</span> <span class="nx">requireElements</span><span class="p">.</span><span class="nx">length</span> <span class="o">+</span> <span class="nx">styleElements</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span>
+
+        <span class="kd">var</span> <span class="nx">partDone</span> <span class="o">=</span> <span class="nx">_</span><span class="p">.</span><span class="nx">after</span><span class="p">(</span><span class="nx">totalFiles</span><span class="p">,</span> <span class="nx">done</span><span class="p">);</span>
+
+        <span class="nx">requireElements</span><span class="p">.</span><span class="nx">forEach</span><span class="p">(</span><span class="nx">optimize</span><span class="p">(</span><span class="nx">app</span><span class="p">.</span><span class="nx">staticContentPath</span><span class="p">,</span> <span class="nx">code</span><span class="p">,</span> <span class="nx">partDone</span><span class="p">,</span> <span class="nx">log</span><span class="p">));</span>
+        <span class="nx">styleElements</span><span class="p">.</span><span class="nx">forEach</span><span class="p">(</span><span class="nx">replaceWith</span><span class="p">(</span><span class="s2">&quot;style&quot;</span><span class="p">,</span> <span class="s2">&quot;href&quot;</span><span class="p">,</span> <span class="nx">app</span><span class="p">.</span><span class="nx">staticContentPath</span><span class="p">,</span> <span class="nx">code</span><span class="p">,</span> <span class="nx">partDone</span><span class="p">,</span> <span class="nx">log</span><span class="p">));</span>
+        <span class="nx">scriptElements</span><span class="p">.</span><span class="nx">forEach</span><span class="p">(</span><span class="nx">replaceWith</span><span class="p">(</span><span class="s2">&quot;script&quot;</span><span class="p">,</span> <span class="s2">&quot;src&quot;</span><span class="p">,</span> <span class="nx">app</span><span class="p">.</span><span class="nx">staticContentPath</span><span class="p">,</span> <span class="nx">code</span><span class="p">,</span> <span class="nx">partDone</span><span class="p">,</span> <span class="nx">log</span><span class="p">));</span>
+
+        <span class="kd">function</span> <span class="nx">done</span><span class="p">()</span> <span class="p">{</span>
+            <span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Cached: &quot;</span> <span class="o">+</span> <span class="nx">indexFilePath</span><span class="p">);</span>
+            <span class="nx">loadedCache</span><span class="p">[</span><span class="nx">indexFilePath</span><span class="p">]</span> <span class="o">=</span> <span class="nx">code</span><span class="p">.</span><span class="nx">html</span><span class="p">;</span>
+            <span class="nx">callback</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="nx">loadedCache</span><span class="p">[</span><span class="nx">indexFilePath</span><span class="p">]);</span>
+        <span class="p">}</span>
+    <span class="p">});</span>
+<span class="p">};</span>
+
+<span class="kd">function</span> <span class="nx">getElements</span><span class="p">(</span><span class="nx">html</span><span class="p">,</span> <span class="nx">regExp</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">elements</span> <span class="o">=</span> <span class="p">[],</span>
+        <span class="nx">match</span> <span class="o">=</span> <span class="nx">regExp</span><span class="p">.</span><span class="nx">exec</span><span class="p">(</span><span class="nx">html</span><span class="p">);</span>
+
+    <span class="k">while</span> <span class="p">(</span><span class="nx">match</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">elements</span><span class="p">.</span><span class="nx">push</span><span class="p">({</span>
+            <span class="nx">tag</span><span class="o">:</span> <span class="nx">match</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span>
+            <span class="nx">path</span><span class="o">:</span> <span class="nx">match</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="p">});</span>
+        <span class="nx">match</span> <span class="o">=</span> <span class="nx">regExp</span><span class="p">.</span><span class="nx">exec</span><span class="p">(</span><span class="nx">html</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="k">return</span> <span class="nx">elements</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nx">optimize</span><span class="p">(</span><span class="nx">staticContentPath</span><span class="p">,</span> <span class="nx">code</span><span class="p">,</span> <span class="nx">callback</span><span class="p">,</span> <span class="nx">log</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">log</span> <span class="o">=</span> <span class="nx">log</span> <span class="o">||</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">;</span>
+
+    <span class="k">return</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">resource</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kd">var</span> <span class="nx">resourcePath</span> <span class="o">=</span> <span class="nx">resource</span><span class="p">.</span><span class="nx">path</span><span class="p">,</span>
+            <span class="nx">resourceTag</span> <span class="o">=</span> <span class="nx">resource</span><span class="p">.</span><span class="nx">tag</span><span class="p">,</span>
+            <span class="nx">startTag</span> <span class="o">=</span> <span class="s2">&quot;&lt;script data-requirejs=\&quot;&quot;</span> <span class="o">+</span> <span class="nx">resourcePath</span> <span class="o">+</span> <span class="s2">&quot;\&quot;&gt;\n&quot;</span><span class="p">,</span>
+            <span class="nx">endTag</span> <span class="o">=</span> <span class="s2">&quot;&lt;/script&gt;&quot;</span><span class="p">,</span>
+            <span class="nx">newTag</span> <span class="o">=</span> <span class="nx">startTag</span><span class="p">.</span><span class="nx">trim</span><span class="p">()</span> <span class="o">+</span> <span class="nx">endTag</span><span class="p">;</span>
+
+        <span class="kd">var</span> <span class="nx">resourceFilePath</span> <span class="o">=</span> <span class="nx">path</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="nx">staticContentPath</span><span class="p">,</span> <span class="nx">resourcePath</span> <span class="o">+</span> <span class="s2">&quot;.js&quot;</span><span class="p">),</span>
+            <span class="nx">cacheContents</span> <span class="o">=</span> <span class="nx">loadedCache</span><span class="p">[</span><span class="nx">resourceFilePath</span><span class="p">];</span>
+        
+        <span class="nx">code</span><span class="p">.</span><span class="nx">html</span> <span class="o">=</span> <span class="nx">code</span><span class="p">.</span><span class="nx">html</span>
+            <span class="p">.</span><span class="nx">split</span><span class="p">(</span><span class="nx">resourceTag</span><span class="p">)</span>
+            <span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="nx">resourceTag</span> <span class="o">+</span> <span class="nx">newTag</span><span class="p">);</span>
+        <span class="nx">resourceTag</span> <span class="o">=</span> <span class="nx">newTag</span><span class="p">;</span>
+
+        <span class="k">if</span> <span class="p">(</span><span class="nx">cacheContents</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nx">code</span><span class="p">.</span><span class="nx">html</span> <span class="o">=</span> <span class="nx">code</span><span class="p">.</span><span class="nx">html</span>
+                <span class="p">.</span><span class="nx">split</span><span class="p">(</span><span class="nx">resourceTag</span><span class="p">)</span>
+                <span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="nx">startTag</span> <span class="o">+</span> <span class="nx">cacheContents</span> <span class="o">+</span> <span class="nx">endTag</span><span class="p">);</span>
+            <span class="nx">callback</span><span class="p">();</span>
+            <span class="k">return</span><span class="p">;</span>
+        <span class="p">}</span>
+
+        <span class="kd">var</span> <span class="nx">parts</span> <span class="o">=</span> <span class="nx">resourcePath</span><span class="p">.</span><span class="nx">split</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">),</span>
+            <span class="nx">mainFile</span> <span class="o">=</span> <span class="nx">parts</span><span class="p">.</span><span class="nx">pop</span><span class="p">().</span><span class="nx">replace</span><span class="p">(</span><span class="sr">/\.js$/</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">),</span>
+            <span class="nx">baseUrl</span> <span class="o">=</span> <span class="nx">path</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="nx">staticContentPath</span><span class="p">,</span> <span class="nx">parts</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">)),</span>
+            <span class="nx">outFile</span> <span class="o">=</span> <span class="nx">path</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="nx">staticContentPath</span><span class="p">,</span> <span class="nx">_</span><span class="p">.</span><span class="nx">uniqueId</span><span class="p">(</span><span class="s2">&quot;require-build-&quot;</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;.rjs&quot;</span><span class="p">);</span>
+        
+        <span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Optimizing: &quot;</span> <span class="o">+</span> <span class="nx">resourceFilePath</span><span class="p">);</span>
+        
+        <span class="kd">var</span> <span class="nx">requireConfig</span><span class="p">;</span>
+        <span class="k">try</span> <span class="p">{</span>
+            <span class="nx">requireConfig</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="nx">path</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="nx">baseUrl</span><span class="p">,</span> <span class="s2">&quot;require-config&quot;</span><span class="p">));</span>
+        <span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nx">log</span><span class="p">(</span><span class="s2">&quot;No require-config found&quot;</span><span class="p">);</span>
+            <span class="nx">log</span><span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">message</span><span class="p">);</span>
+            
+            <span class="k">try</span> <span class="p">{</span>
+                <span class="kd">var</span> <span class="nx">mainFileContents</span> <span class="o">=</span> <span class="nx">fs</span><span class="p">.</span><span class="nx">readFileSync</span><span class="p">(</span><span class="nx">path</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="nx">baseUrl</span><span class="p">,</span> <span class="nx">mainFile</span> <span class="o">+</span> <span class="s2">&quot;.js&quot;</span><span class="p">)).</span><span class="nx">toString</span><span class="p">();</span>
+                <span class="nx">requireConfig</span> <span class="o">=</span> <span class="nx">findRequireJsOptions</span><span class="p">(</span><span class="nx">mainFileContents</span><span class="p">);</span>
+            <span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
+                <span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Reading main file&#39;s contents to get RequireJS options didn&#39;t work.&quot;</span><span class="p">);</span>
+                <span class="nx">log</span><span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">message</span><span class="p">);</span>
+                
+                <span class="nx">requireConfig</span> <span class="o">=</span> <span class="p">{};</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+        
+        <span class="kd">var</span> <span class="nx">rjsOptions</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="nx">baseUrl</span><span class="o">:</span> <span class="nx">baseUrl</span><span class="p">,</span>
+            <span class="nx">name</span><span class="o">:</span> <span class="nx">mainFile</span><span class="p">,</span>
+            <span class="nx">out</span><span class="o">:</span> <span class="nx">outFile</span>
+        <span class="p">};</span>
+        
+        <span class="k">if</span> <span class="p">(</span><span class="nx">requireConfig</span><span class="p">.</span><span class="nx">baseUrl</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nx">rjsOptions</span><span class="p">.</span><span class="nx">baseUrl</span> <span class="o">=</span> <span class="nx">path</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="nx">staticContentPath</span><span class="p">,</span> <span class="nx">requireConfig</span><span class="p">.</span><span class="nx">baseUrl</span><span class="p">);</span>
+            <span class="k">delete</span> <span class="nx">requireConfig</span><span class="p">.</span><span class="nx">baseUrl</span><span class="p">;</span>
+        <span class="p">}</span>
+        
+        <span class="nx">requirejs</span><span class="p">.</span><span class="nx">optimize</span><span class="p">(</span>
+            <span class="nx">_</span><span class="p">.</span><span class="nx">extend</span><span class="p">(</span><span class="nx">rjsOptions</span><span class="p">,</span> <span class="nx">requireConfig</span><span class="p">),</span>
+            <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+                <span class="nx">fs</span><span class="p">.</span><span class="nx">readFile</span><span class="p">(</span><span class="nx">outFile</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">builtContents</span><span class="p">)</span> <span class="p">{</span>
+                    <span class="k">if</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
+                        <span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Couldn&#39;t read created build file: &quot;</span> <span class="o">+</span> <span class="nx">outFile</span><span class="p">);</span>
+                        <span class="nx">log</span><span class="p">(</span><span class="nx">err</span><span class="p">.</span><span class="nx">message</span><span class="p">);</span>
+                        <span class="nx">callback</span><span class="p">();</span>
+                        <span class="k">return</span><span class="p">;</span>
+                    <span class="p">}</span>
+                    
+                    <span class="nx">fs</span><span class="p">.</span><span class="nx">unlink</span><span class="p">(</span><span class="nx">outFile</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
+                        <span class="k">if</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
+                            <span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Could not delete built file: &quot;</span> <span class="o">+</span> <span class="nx">outFile</span><span class="p">);</span>
+                            <span class="nx">log</span><span class="p">(</span><span class="nx">err</span><span class="p">.</span><span class="nx">message</span><span class="p">);</span>
+                            <span class="k">return</span><span class="p">;</span>
+                        <span class="p">}</span>
+                    <span class="p">});</span>
+
+                    <span class="nx">builtContents</span> <span class="o">=</span> <span class="nx">builtContents</span><span class="p">.</span><span class="nx">toString</span><span class="p">();</span>
+                    <span class="nx">loadedCache</span><span class="p">[</span><span class="nx">resourceFilePath</span><span class="p">]</span> <span class="o">=</span> <span class="nx">builtContents</span><span class="p">;</span>
+                    
+                    <span class="nx">code</span><span class="p">.</span><span class="nx">html</span> <span class="o">=</span> <span class="nx">code</span><span class="p">.</span><span class="nx">html</span>
+                        <span class="p">.</span><span class="nx">split</span><span class="p">(</span><span class="nx">resourceTag</span><span class="p">)</span>
+                        <span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="nx">startTag</span> <span class="o">+</span> <span class="nx">builtContents</span> <span class="o">+</span> <span class="nx">endTag</span><span class="p">);</span>
+                    <span class="nx">callback</span><span class="p">();</span>
+                <span class="p">}</span>
+            <span class="p">);</span>
+        <span class="p">},</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Could not optimize: &quot;</span> <span class="o">+</span> <span class="nx">resourceFilePath</span><span class="p">);</span>
+            <span class="nx">log</span><span class="p">(</span><span class="nx">err</span><span class="p">.</span><span class="nx">message</span><span class="p">);</span>
+
+            <span class="nx">fs</span><span class="p">.</span><span class="nx">readFile</span><span class="p">(</span><span class="nx">resourceFilePath</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">mainFileContents</span><span class="p">)</span> <span class="p">{</span>
+                <span class="k">if</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
+                    <span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Couldn&#39;t read requirejs main file: &quot;</span> <span class="o">+</span> <span class="nx">resourceFilePath</span><span class="p">);</span>
+                    <span class="nx">log</span><span class="p">(</span><span class="nx">err</span><span class="p">.</span><span class="nx">message</span><span class="p">);</span>
+                    <span class="nx">callback</span><span class="p">();</span>
+                    <span class="k">return</span><span class="p">;</span>
+                <span class="p">}</span>
+
+                <span class="nx">mainFileContents</span> <span class="o">=</span> <span class="nx">minify</span><span class="p">(</span><span class="nx">mainFileContents</span><span class="p">.</span><span class="nx">toString</span><span class="p">(),</span> <span class="nx">resourceFilePath</span><span class="p">,</span> <span class="nx">log</span><span class="p">);</span>
+
+                <span class="nx">mainFileContents</span> <span class="o">=</span> <span class="s2">&quot;require.config({baseUrl: \&quot;&quot;</span> <span class="o">+</span> <span class="nx">parts</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;\&quot;});\n&quot;</span> <span class="o">+</span> <span class="nx">mainFileContents</span><span class="p">;</span>
+                <span class="nx">loadedCache</span><span class="p">[</span><span class="nx">resourceFilePath</span><span class="p">]</span> <span class="o">=</span> <span class="nx">mainFileContents</span><span class="p">;</span>
+
+                <span class="nx">code</span><span class="p">.</span><span class="nx">html</span> <span class="o">=</span> <span class="nx">code</span><span class="p">.</span><span class="nx">html</span>
+                    <span class="p">.</span><span class="nx">split</span><span class="p">(</span><span class="nx">resourceTag</span><span class="p">)</span>
+                    <span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="nx">startTag</span> <span class="o">+</span> <span class="nx">mainFileContents</span> <span class="o">+</span> <span class="nx">endTag</span><span class="p">);</span>
+                <span class="nx">callback</span><span class="p">();</span>
+            <span class="p">});</span>
+        <span class="p">});</span>
+    <span class="p">};</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nx">findRequireJsOptions</span><span class="p">(</span><span class="nx">contents</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">optionsRegex</span> <span class="o">=</span> <span class="sr">/requirejs\.config\((\{[\s\S]*\})\);/gm</span><span class="p">,</span>
+        <span class="nx">match</span> <span class="o">=</span> <span class="nx">optionsRegex</span><span class="p">.</span><span class="nx">exec</span><span class="p">(</span><span class="nb">String</span><span class="p">(</span><span class="nx">contents</span><span class="p">));</span>
+    <span class="k">return</span> <span class="nx">json5</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span><span class="nx">match</span> <span class="o">&amp;&amp;</span> <span class="nx">match</span><span class="p">[</span><span class="mi">1</span><span class="p">]);</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nx">replaceWith</span><span class="p">(</span><span class="nx">tagName</span><span class="p">,</span> <span class="nx">pathAttribute</span><span class="p">,</span> <span class="nx">staticContentPath</span><span class="p">,</span> <span class="nx">code</span><span class="p">,</span> <span class="nx">callback</span><span class="p">,</span> <span class="nx">log</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">log</span> <span class="o">=</span> <span class="nx">log</span> <span class="o">||</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">;</span>
+    
+    <span class="k">return</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">resource</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kd">var</span> <span class="nx">resourcePath</span> <span class="o">=</span> <span class="nx">resource</span><span class="p">.</span><span class="nx">path</span><span class="p">,</span>
+            <span class="nx">resourceTag</span> <span class="o">=</span> <span class="nx">resource</span><span class="p">.</span><span class="nx">tag</span><span class="p">,</span>
+            <span class="nx">startTag</span> <span class="o">=</span> <span class="s2">&quot;&lt;&quot;</span> <span class="o">+</span> <span class="nx">tagName</span> <span class="o">+</span>
+                <span class="s2">&quot; data-&quot;</span> <span class="o">+</span> <span class="nx">pathAttribute</span> <span class="o">+</span> <span class="s2">&quot;=\&quot;&quot;</span> <span class="o">+</span> <span class="nx">resourcePath</span> <span class="o">+</span> <span class="s2">&quot;\&quot;&gt;\n&quot;</span><span class="p">,</span>
+            <span class="nx">endTag</span> <span class="o">=</span> <span class="s2">&quot;&lt;/&quot;</span> <span class="o">+</span> <span class="nx">tagName</span> <span class="o">+</span> <span class="s2">&quot;&gt;&quot;</span><span class="p">,</span>
+            <span class="nx">resourceBaseUrl</span> <span class="o">=</span> <span class="nx">resourcePath</span><span class="p">.</span><span class="nx">split</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">).</span><span class="nx">slice</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">).</span><span class="nx">join</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">);</span>
+
+        <span class="k">if</span> <span class="p">(</span><span class="sr">/^\//</span><span class="p">.</span><span class="nx">test</span><span class="p">(</span><span class="nx">resourcePath</span><span class="p">)</span> <span class="o">||</span> <span class="sr">/^http/</span><span class="p">.</span><span class="nx">test</span><span class="p">(</span><span class="nx">resourcePath</span><span class="p">))</span> <span class="p">{</span>
+            <span class="nx">log</span><span class="p">(</span><span class="s2">&quot;URL is not relative: &quot;</span> <span class="o">+</span> <span class="nx">resourcePath</span><span class="p">);</span>
+            <span class="nx">callback</span><span class="p">();</span>
+            <span class="k">return</span><span class="p">;</span>
+        <span class="p">}</span>
+        
+        <span class="kd">var</span> <span class="nx">resourceFilePath</span> <span class="o">=</span> <span class="nx">path</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="nx">staticContentPath</span><span class="p">,</span> <span class="nx">resourcePath</span><span class="p">),</span>
+            <span class="nx">cacheContents</span> <span class="o">=</span> <span class="nx">loadedCache</span><span class="p">[</span><span class="nx">resourceFilePath</span><span class="p">];</span>
+        
+        <span class="k">if</span> <span class="p">(</span><span class="nx">cacheContents</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nx">code</span><span class="p">.</span><span class="nx">html</span> <span class="o">=</span> <span class="nx">code</span><span class="p">.</span><span class="nx">html</span>
+                <span class="p">.</span><span class="nx">split</span><span class="p">(</span><span class="nx">resourceTag</span><span class="p">)</span>
+                <span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="nx">startTag</span> <span class="o">+</span> <span class="nx">cacheContents</span> <span class="o">+</span> <span class="nx">endTag</span><span class="p">);</span>
+            <span class="nx">callback</span><span class="p">();</span>
+            <span class="k">return</span><span class="p">;</span>
+        <span class="p">}</span>
+
+        <span class="nx">fs</span><span class="p">.</span><span class="nx">readFile</span><span class="p">(</span><span class="nx">resourceFilePath</span><span class="p">,</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">contents</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">if</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
+                <span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Couldn&#39;t read resource file at: &quot;</span> <span class="o">+</span> <span class="nx">resourceFilePath</span><span class="p">);</span>
+                <span class="nx">callback</span><span class="p">();</span>
+                <span class="k">return</span><span class="p">;</span>
+            <span class="p">}</span>
+            
+            <span class="nx">contents</span> <span class="o">=</span> <span class="nx">contents</span><span class="p">.</span><span class="nx">toString</span><span class="p">();</span>
+            <span class="k">if</span> <span class="p">(</span><span class="nx">tagName</span> <span class="o">===</span> <span class="s2">&quot;script&quot;</span><span class="p">)</span> <span class="p">{</span>
+                <span class="nx">contents</span> <span class="o">=</span> <span class="nx">minify</span><span class="p">(</span><span class="nx">contents</span><span class="p">,</span> <span class="nx">resourceFilePath</span><span class="p">,</span> <span class="nx">log</span><span class="p">);</span>
+            <span class="p">}</span>
+            <span class="k">if</span> <span class="p">(</span><span class="nx">tagName</span> <span class="o">===</span> <span class="s2">&quot;style&quot;</span><span class="p">)</span> <span class="p">{</span>
+                <span class="nx">contents</span> <span class="o">=</span> <span class="nx">correctStyleUrls</span><span class="p">(</span><span class="nx">contents</span><span class="p">,</span> <span class="nx">resourceBaseUrl</span><span class="p">);</span>
+            <span class="p">}</span>
+            
+            <span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Cached: &quot;</span> <span class="o">+</span> <span class="nx">resourceFilePath</span><span class="p">);</span>
+            <span class="nx">loadedCache</span><span class="p">[</span><span class="nx">resourceFilePath</span><span class="p">]</span> <span class="o">=</span> <span class="nx">contents</span><span class="p">;</span>
+            <span class="nx">code</span><span class="p">.</span><span class="nx">html</span> <span class="o">=</span> <span class="nx">code</span><span class="p">.</span><span class="nx">html</span>
+                <span class="p">.</span><span class="nx">split</span><span class="p">(</span><span class="nx">resourceTag</span><span class="p">)</span>
+                <span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="nx">startTag</span> <span class="o">+</span> <span class="nx">contents</span> <span class="o">+</span> <span class="nx">endTag</span><span class="p">);</span>
+            <span class="nx">callback</span><span class="p">();</span>
+        <span class="p">});</span>
+    <span class="p">};</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nx">correctStyleUrls</span><span class="p">(</span><span class="nx">css</span><span class="p">,</span> <span class="nx">resourceBaseUrl</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">urlRegex</span> <span class="o">=</span> <span class="sr">/url\(([&#39;&quot;])(.*)\1\)/gm</span><span class="p">,</span>
+        <span class="nx">match</span> <span class="o">=</span> <span class="nx">urlRegex</span><span class="p">.</span><span class="nx">exec</span><span class="p">(</span><span class="nx">css</span><span class="p">);</span>
+    
+    <span class="k">while</span> <span class="p">(</span><span class="nx">match</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">css</span> <span class="o">=</span> <span class="nx">css</span><span class="p">.</span><span class="nx">replace</span><span class="p">(</span><span class="nx">match</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="nx">resourceBaseUrl</span> <span class="o">+</span> <span class="s2">&quot;/&quot;</span> <span class="o">+</span> <span class="nx">match</span><span class="p">[</span><span class="mi">2</span><span class="p">]);</span>
+        <span class="nx">match</span> <span class="o">=</span> <span class="nx">urlRegex</span><span class="p">.</span><span class="nx">exec</span><span class="p">(</span><span class="nx">css</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="nx">css</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nx">minify</span><span class="p">(</span><span class="nx">js</span><span class="p">,</span> <span class="nx">resourcePath</span><span class="p">,</span> <span class="nx">log</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="sr">/min\.js$/</span><span class="p">.</span><span class="nx">test</span><span class="p">(</span><span class="nx">resourcePath</span><span class="p">))</span> <span class="k">return</span> <span class="nx">js</span><span class="p">;</span>
+    
+    <span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Minifying: &quot;</span> <span class="o">+</span> <span class="nx">resourcePath</span><span class="p">);</span>
+    <span class="k">return</span> <span class="nx">UglifyJS</span><span class="p">.</span><span class="nx">minify</span><span class="p">(</span><span class="nx">js</span><span class="p">,</span> <span class="p">{</span>
+        <span class="nx">fromString</span><span class="o">:</span> <span class="kc">true</span>
+    <span class="p">}).</span><span class="nx">code</span><span class="p">;</span>
+<span class="p">}</span></div></div></div></div></body></html>
