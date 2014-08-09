@@ -1,6 +1,6 @@
 var assert = require("assert"),
     request = require("supertest"),
-    socketIO = require("socket.io-client"),
+    socketClient = require("socket.io-client"),
     _ = require("underscore");
 
 describe('app-log', function (){
@@ -56,10 +56,10 @@ describe('app-log', function (){
             var serverAddress = app.server.address(),
                 socketURL = "http://localhost:" + serverAddress.port;
             
-            var client = socketIO.connect(socketURL),
+            var client = socketClient.connect(socketURL),
                 logData = { key: "value" };
             
-            app.socketIO.on("connection", function (socket) {
+            app.sockets.on("connection", function (socket) {
                 socket.on("_log", function (logData) {
                     socket.emit("_log_confirmed", logData);
                 });

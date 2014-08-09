@@ -1,5 +1,5 @@
-apper
-=====
+Apper Docs
+==========
 
 Plug and play, restful, real-time single page apps framework
 
@@ -167,7 +167,7 @@ Include `<script src='/socket.io/socket.io.js'></script>` in HTML for use on cli
 Get an Express-based app object and run express methods like 
 `app.set`, `app.use`, `app.get`, `app.post`, etc. on it.
 
-For WebSocket requests, `app.socketIO` provides the same functionality as
+For WebSocket requests, `app.sockets` provides the same functionality as
 `io.sockets` using [socket.io] [
 
 #### environment.js
@@ -190,7 +190,7 @@ For WebSocket requests, `app.socketIO` provides the same functionality as
 #### sockets.js
 
     module.exports = function (app) {
-        app.socketIO.on("connection", function (socket) {
+        app.sockets.on("connection", function (socket) {
             
             socket.on("hey", function (name) {
                 socket.emit("Hey " + name + "!");

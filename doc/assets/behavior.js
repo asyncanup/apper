@@ -21,8 +21,8 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
           "type": "heading",
           "data": {
             "level": 1,
-            "title": "apper",
-            "slug": "apper",
+            "title": "Apper Docs",
+            "slug": "apper-docs",
             "isFileHeader": true
           },
           "depth": 1,
@@ -197,7 +197,7 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
             }
           ]
         },
-        "title": "apper"
+        "title": "Apper Docs"
       },
       "depth": 1,
       "outline": [
@@ -386,10 +386,103 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
         "projectPath": "lib/app.js",
         "targetPath": "app",
         "pageTitle": "app",
-        "title": "app"
+        "firstHeader": {
+          "type": "heading",
+          "data": {
+            "level": 1,
+            "title": "App constructor",
+            "slug": "app-constructor",
+            "isFileHeader": true
+          },
+          "depth": 1,
+          "children": [
+            {
+              "type": "heading",
+              "data": {
+                "level": 2,
+                "title": "Main Application constructor",
+                "slug": "main-application-constructor"
+              },
+              "depth": 2,
+              "children": [
+                {
+                  "type": "heading",
+                  "data": {
+                    "level": 3,
+                    "title": "Configuration",
+                    "slug": "configuration"
+                  },
+                  "depth": 3
+                }, {
+                  "type": "heading",
+                  "data": {
+                    "level": 3,
+                    "title": "WebSockets",
+                    "slug": "websockets"
+                  },
+                  "depth": 3
+                }, {
+                  "type": "heading",
+                  "data": {
+                    "level": 3,
+                    "title": "Initialize",
+                    "slug": "initialize"
+                  },
+                  "depth": 3
+                }
+              ]
+            }
+          ]
+        },
+        "title": "App constructor"
       },
       "depth": 1,
-      "outline": []
+      "outline": [
+        {
+          "type": "heading",
+          "data": {
+            "level": 2,
+            "title": "Main Application constructor",
+            "slug": "main-application-constructor"
+          },
+          "depth": 2,
+          "children": [
+            {
+              "type": "heading",
+              "data": {
+                "level": 3,
+                "title": "Configuration",
+                "slug": "configuration"
+              },
+              "depth": 3
+            }, {
+              "type": "heading",
+              "data": {
+                "level": 3,
+                "title": "WebSockets",
+                "slug": "websockets"
+              },
+              "depth": 3
+            }, {
+              "type": "heading",
+              "data": {
+                "level": 3,
+                "title": "Initialize",
+                "slug": "initialize"
+              },
+              "depth": 3
+            }
+          ]
+        }, {
+          "type": "heading",
+          "data": {
+            "level": 1,
+            "title": "Module Dependencies",
+            "slug": "module-dependencies"
+          },
+          "depth": 1
+        }
+      ]
     }, {
       "type": "file",
       "data": {
@@ -430,13 +523,13 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
           "type": "heading",
           "data": {
             "level": 1,
-            "title": "Apper module",
+            "title": "Apper Module",
             "slug": "apper-module",
             "isFileHeader": true
           },
           "depth": 1
         },
-        "title": "Apper module"
+        "title": "Apper Module"
       },
       "depth": 1,
       "outline": []

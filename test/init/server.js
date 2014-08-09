@@ -9,16 +9,12 @@ describe('init/server', function (){
         assert.equal("function", typeof app.expressApp);
     });
     
-    it("should expose express library as property of underlying express object", function () {
-        assert.equal(express, app.expressApp.express);
-    });
-    
     it("should create the server object", function () {
         assert(app.server);
     });
     
     it("should setup the socket.io listener", function () {
-        assert(app.socketIO);
+        assert(app.sockets);
     });
      
     it("should serve socket.io static files from root", function (done) {
