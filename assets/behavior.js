@@ -21,8 +21,8 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
           "type": "heading",
           "data": {
             "level": 1,
-            "title": "apper",
-            "slug": "apper",
+            "title": "Apper Docs",
+            "slug": "apper-docs",
             "isFileHeader": true
           },
           "depth": 1,
@@ -197,7 +197,7 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
             }
           ]
         },
-        "title": "apper"
+        "title": "Apper Docs"
       },
       "depth": 1,
       "outline": [
@@ -386,10 +386,103 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
         "projectPath": "lib/app.js",
         "targetPath": "app",
         "pageTitle": "app",
-        "title": "app"
+        "firstHeader": {
+          "type": "heading",
+          "data": {
+            "level": 1,
+            "title": "App constructor",
+            "slug": "app-constructor",
+            "isFileHeader": true
+          },
+          "depth": 1,
+          "children": [
+            {
+              "type": "heading",
+              "data": {
+                "level": 2,
+                "title": "Main Application constructor",
+                "slug": "main-application-constructor"
+              },
+              "depth": 2,
+              "children": [
+                {
+                  "type": "heading",
+                  "data": {
+                    "level": 3,
+                    "title": "Configuration",
+                    "slug": "configuration"
+                  },
+                  "depth": 3
+                }, {
+                  "type": "heading",
+                  "data": {
+                    "level": 3,
+                    "title": "WebSockets",
+                    "slug": "websockets"
+                  },
+                  "depth": 3
+                }, {
+                  "type": "heading",
+                  "data": {
+                    "level": 3,
+                    "title": "Initialize",
+                    "slug": "initialize"
+                  },
+                  "depth": 3
+                }
+              ]
+            }
+          ]
+        },
+        "title": "App constructor"
       },
       "depth": 1,
-      "outline": []
+      "outline": [
+        {
+          "type": "heading",
+          "data": {
+            "level": 2,
+            "title": "Main Application constructor",
+            "slug": "main-application-constructor"
+          },
+          "depth": 2,
+          "children": [
+            {
+              "type": "heading",
+              "data": {
+                "level": 3,
+                "title": "Configuration",
+                "slug": "configuration"
+              },
+              "depth": 3
+            }, {
+              "type": "heading",
+              "data": {
+                "level": 3,
+                "title": "WebSockets",
+                "slug": "websockets"
+              },
+              "depth": 3
+            }, {
+              "type": "heading",
+              "data": {
+                "level": 3,
+                "title": "Initialize",
+                "slug": "initialize"
+              },
+              "depth": 3
+            }
+          ]
+        }, {
+          "type": "heading",
+          "data": {
+            "level": 1,
+            "title": "Module Dependencies",
+            "slug": "module-dependencies"
+          },
+          "depth": 1
+        }
+      ]
     }, {
       "type": "file",
       "data": {
@@ -406,7 +499,17 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
         "projectPath": "lib/app-log.js",
         "targetPath": "app-log",
         "pageTitle": "app-log",
-        "title": "app-log"
+        "firstHeader": {
+          "type": "heading",
+          "data": {
+            "level": 1,
+            "title": "WebSocket Logger",
+            "slug": "websocket-logger",
+            "isFileHeader": true
+          },
+          "depth": 1
+        },
+        "title": "WebSocket Logger"
       },
       "depth": 1,
       "outline": []
@@ -430,13 +533,13 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
           "type": "heading",
           "data": {
             "level": 1,
-            "title": "Apper module",
+            "title": "Apper Module",
             "slug": "apper-module",
             "isFileHeader": true
           },
           "depth": 1
         },
-        "title": "Apper module"
+        "title": "Apper Module"
       },
       "depth": 1,
       "outline": []
@@ -456,7 +559,17 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
         "projectPath": "lib/config.js",
         "targetPath": "config",
         "pageTitle": "config",
-        "title": "config"
+        "firstHeader": {
+          "type": "heading",
+          "data": {
+            "level": 1,
+            "title": "Configuration",
+            "slug": "configuration",
+            "isFileHeader": true
+          },
+          "depth": 1
+        },
+        "title": "Configuration"
       },
       "depth": 1,
       "outline": []
@@ -476,7 +589,17 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
         "projectPath": "lib/fs-utils.js",
         "targetPath": "fs-utils",
         "pageTitle": "fs-utils",
-        "title": "fs-utils"
+        "firstHeader": {
+          "type": "heading",
+          "data": {
+            "level": 1,
+            "title": "File system utilities",
+            "slug": "file-system-utilities",
+            "isFileHeader": true
+          },
+          "depth": 1
+        },
+        "title": "File system utilities"
       },
       "depth": 1,
       "outline": []
@@ -504,7 +627,17 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
             "projectPath": "lib/init/bundling.js",
             "targetPath": "init/bundling",
             "pageTitle": "init/bundling",
-            "title": "bundling"
+            "firstHeader": {
+              "type": "heading",
+              "data": {
+                "level": 1,
+                "title": "Bundling",
+                "slug": "bundling",
+                "isFileHeader": true
+              },
+              "depth": 1
+            },
+            "title": "Bundling"
           },
           "depth": 2,
           "outline": []
@@ -524,7 +657,17 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
             "projectPath": "lib/init/environment.js",
             "targetPath": "init/environment",
             "pageTitle": "init/environment",
-            "title": "environment"
+            "firstHeader": {
+              "type": "heading",
+              "data": {
+                "level": 1,
+                "title": "Load Environment",
+                "slug": "load-environment",
+                "isFileHeader": true
+              },
+              "depth": 1
+            },
+            "title": "Load Environment"
           },
           "depth": 2,
           "outline": []
@@ -544,7 +687,17 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
             "projectPath": "lib/init/get-module-paths.js",
             "targetPath": "init/get-module-paths",
             "pageTitle": "init/get-module-paths",
-            "title": "get-module-paths"
+            "firstHeader": {
+              "type": "heading",
+              "data": {
+                "level": 1,
+                "title": "Get Module Paths",
+                "slug": "get-module-paths",
+                "isFileHeader": true
+              },
+              "depth": 1
+            },
+            "title": "Get Module Paths"
           },
           "depth": 2,
           "outline": []
@@ -564,7 +717,17 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
             "projectPath": "lib/init/index.js",
             "targetPath": "init/index",
             "pageTitle": "init/index",
-            "title": "index"
+            "firstHeader": {
+              "type": "heading",
+              "data": {
+                "level": 1,
+                "title": "Initialization",
+                "slug": "initialization",
+                "isFileHeader": true
+              },
+              "depth": 1
+            },
+            "title": "Initialization"
           },
           "depth": 2,
           "outline": []
@@ -584,7 +747,17 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
             "projectPath": "lib/init/logging.js",
             "targetPath": "init/logging",
             "pageTitle": "init/logging",
-            "title": "logging"
+            "firstHeader": {
+              "type": "heading",
+              "data": {
+                "level": 1,
+                "title": "Unified WebSocket logger",
+                "slug": "unified-websocket-logger",
+                "isFileHeader": true
+              },
+              "depth": 1
+            },
+            "title": "Unified WebSocket logger"
           },
           "depth": 2,
           "outline": []
@@ -604,7 +777,17 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
             "projectPath": "lib/init/middleware.js",
             "targetPath": "init/middleware",
             "pageTitle": "init/middleware",
-            "title": "middleware"
+            "firstHeader": {
+              "type": "heading",
+              "data": {
+                "level": 1,
+                "title": "Load Middleware",
+                "slug": "load-middleware",
+                "isFileHeader": true
+              },
+              "depth": 1
+            },
+            "title": "Load Middleware"
           },
           "depth": 2,
           "outline": []
@@ -644,7 +827,17 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
             "projectPath": "lib/init/routes.js",
             "targetPath": "init/routes",
             "pageTitle": "init/routes",
-            "title": "routes"
+            "firstHeader": {
+              "type": "heading",
+              "data": {
+                "level": 1,
+                "title": "Load Routes",
+                "slug": "load-routes",
+                "isFileHeader": true
+              },
+              "depth": 1
+            },
+            "title": "Load Routes"
           },
           "depth": 2,
           "outline": []
@@ -664,7 +857,17 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
             "projectPath": "lib/init/server.js",
             "targetPath": "init/server",
             "pageTitle": "init/server",
-            "title": "server"
+            "firstHeader": {
+              "type": "heading",
+              "data": {
+                "level": 1,
+                "title": "Setup server",
+                "slug": "setup-server",
+                "isFileHeader": true
+              },
+              "depth": 1
+            },
+            "title": "Setup server"
           },
           "depth": 2,
           "outline": []
@@ -684,7 +887,17 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
             "projectPath": "lib/init/sockets.js",
             "targetPath": "init/sockets",
             "pageTitle": "init/sockets",
-            "title": "sockets"
+            "firstHeader": {
+              "type": "heading",
+              "data": {
+                "level": 1,
+                "title": "Load Sockets",
+                "slug": "load-sockets",
+                "isFileHeader": true
+              },
+              "depth": 1
+            },
+            "title": "Load Sockets"
           },
           "depth": 2,
           "outline": []
@@ -704,7 +917,17 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
             "projectPath": "lib/init/static-content.js",
             "targetPath": "init/static-content",
             "pageTitle": "init/static-content",
-            "title": "static-content"
+            "firstHeader": {
+              "type": "heading",
+              "data": {
+                "level": 1,
+                "title": "Expose Static Content",
+                "slug": "expose-static-content",
+                "isFileHeader": true
+              },
+              "depth": 1
+            },
+            "title": "Expose Static Content"
           },
           "depth": 2,
           "outline": []
@@ -724,10 +947,41 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
             "projectPath": "lib/init/sub-apps.js",
             "targetPath": "init/sub-apps",
             "pageTitle": "init/sub-apps",
-            "title": "sub-apps"
+            "firstHeader": {
+              "type": "heading",
+              "data": {
+                "level": 1,
+                "title": "Mount subapps",
+                "slug": "mount-subapps",
+                "isFileHeader": true
+              },
+              "depth": 1,
+              "children": [
+                {
+                  "type": "heading",
+                  "data": {
+                    "level": 2,
+                    "title": "- should not be hidden folders",
+                    "slug": "-should-not-be-hidden-folders"
+                  },
+                  "depth": 2
+                }
+              ]
+            },
+            "title": "Mount subapps"
           },
           "depth": 2,
-          "outline": []
+          "outline": [
+            {
+              "type": "heading",
+              "data": {
+                "level": 2,
+                "title": "- should not be hidden folders",
+                "slug": "-should-not-be-hidden-folders"
+              },
+              "depth": 2
+            }
+          ]
         }
       ]
     }, {
@@ -746,10 +1000,89 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
         "projectPath": "lib/log.js",
         "targetPath": "log",
         "pageTitle": "log",
-        "title": "log"
+        "firstHeader": {
+          "type": "heading",
+          "data": {
+            "level": 1,
+            "title": "Logger",
+            "slug": "logger",
+            "isFileHeader": true
+          },
+          "depth": 1,
+          "children": [
+            {
+              "type": "heading",
+              "data": {
+                "level": 2,
+                "title": "Custom logging extensions",
+                "slug": "custom-logging-extensions"
+              },
+              "depth": 2
+            }, {
+              "type": "heading",
+              "data": {
+                "level": 2,
+                "title": "Lifecycle",
+                "slug": "lifecycle"
+              },
+              "depth": 2
+            }, {
+              "type": "heading",
+              "data": {
+                "level": 2,
+                "title": "Namespaced logging",
+                "slug": "namespaced-logging"
+              },
+              "depth": 2
+            }, {
+              "type": "heading",
+              "data": {
+                "level": 2,
+                "title": "Third-party integration",
+                "slug": "third-party-integration"
+              },
+              "depth": 2
+            }
+          ]
+        },
+        "title": "Logger"
       },
       "depth": 1,
-      "outline": []
+      "outline": [
+        {
+          "type": "heading",
+          "data": {
+            "level": 2,
+            "title": "Custom logging extensions",
+            "slug": "custom-logging-extensions"
+          },
+          "depth": 2
+        }, {
+          "type": "heading",
+          "data": {
+            "level": 2,
+            "title": "Lifecycle",
+            "slug": "lifecycle"
+          },
+          "depth": 2
+        }, {
+          "type": "heading",
+          "data": {
+            "level": 2,
+            "title": "Namespaced logging",
+            "slug": "namespaced-logging"
+          },
+          "depth": 2
+        }, {
+          "type": "heading",
+          "data": {
+            "level": 2,
+            "title": "Third-party integration",
+            "slug": "third-party-integration"
+          },
+          "depth": 2
+        }
+      ]
     }, {
       "type": "file",
       "data": {
@@ -766,7 +1099,17 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
         "projectPath": "lib/start.js",
         "targetPath": "start",
         "pageTitle": "start",
-        "title": "start"
+        "firstHeader": {
+          "type": "heading",
+          "data": {
+            "level": 1,
+            "title": "Start Server",
+            "slug": "start-server",
+            "isFileHeader": true
+          },
+          "depth": 1
+        },
+        "title": "Start Server"
       },
       "depth": 1,
       "outline": []
