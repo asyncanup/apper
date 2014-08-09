@@ -1,0 +1,46 @@
+<!DOCTYPE html><html lang="en"><head><title>lib/start</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="groc-relative-root" content="../"><meta name="groc-document-path" content="lib/start"><meta name="groc-project-path" content="lib/start.js"><link rel="stylesheet" type="text/css" media="all" href="../assets/style.css"><script type="text/javascript" src="../assets/behavior.js"></script><body><div id="meta"><div class="file-path">lib/start.js</div></div><div id="document"><div class="segment"><div class="code"><div class="wrapper"><span class="kd">var</span> <span class="nx">portfinder</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&quot;portfinder&quot;</span><span class="p">),</span>
+    <span class="nx">openPage</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&quot;opener&quot;</span><span class="p">);</span>
+
+<span class="nx">module</span><span class="p">.</span><span class="nx">exports</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">port</span><span class="p">,</span> <span class="nx">host</span><span class="p">,</span> <span class="nx">callback</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="k">this</span><span class="p">.</span><span class="nx">didInitialize</span><span class="p">)</span> <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Call app.init() to initialize app before starting it.&quot;</span><span class="p">);</span>
+    
+    <span class="k">if</span> <span class="p">(</span><span class="k">typeof</span> <span class="nx">port</span> <span class="o">===</span> <span class="s2">&quot;function&quot;</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">callback</span> <span class="o">=</span> <span class="nx">port</span><span class="p">;</span>
+        <span class="nx">port</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">if</span> <span class="p">(</span><span class="k">typeof</span> <span class="nx">host</span> <span class="o">===</span> <span class="s2">&quot;function&quot;</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">callback</span> <span class="o">=</span> <span class="nx">host</span><span class="p">;</span>
+        <span class="nx">host</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="nx">port</span> <span class="o">=</span> <span class="nx">port</span> <span class="o">||</span> <span class="k">this</span><span class="p">.</span><span class="nx">port</span> <span class="o">||</span> <span class="nx">process</span><span class="p">.</span><span class="nx">env</span><span class="p">.</span><span class="nx">PORT</span><span class="p">;</span>
+    <span class="nx">host</span> <span class="o">=</span> <span class="nx">host</span> <span class="o">||</span> <span class="k">this</span><span class="p">.</span><span class="nx">host</span> <span class="o">||</span> <span class="s2">&quot;0.0.0.0&quot;</span><span class="p">;</span>
+    
+    <span class="kd">var</span> <span class="nx">toOpenBrowser</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">toOpenBrowser</span><span class="p">,</span>
+        <span class="nx">app</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
+    <span class="nx">callback</span> <span class="o">=</span> <span class="nx">callback</span> <span class="o">||</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+        <span class="kd">var</span> <span class="nx">info</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">address</span><span class="p">(),</span>
+            <span class="nx">logMsg</span> <span class="o">=</span> <span class="s2">&quot;Serving on &quot;</span> <span class="o">+</span> <span class="nx">info</span><span class="p">.</span><span class="nx">address</span> <span class="o">+</span> <span class="s2">&quot;:&quot;</span> <span class="o">+</span> <span class="nx">info</span><span class="p">.</span><span class="nx">port</span><span class="p">;</span>
+
+        <span class="nx">app</span><span class="p">.</span><span class="nx">log</span><span class="p">.</span><span class="nx">print</span><span class="p">(</span><span class="nx">logMsg</span><span class="p">);</span>
+        
+        <span class="k">if</span> <span class="p">(</span><span class="nx">toOpenBrowser</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nx">openPage</span><span class="p">(</span><span class="s2">&quot;http://localhost&quot;</span> <span class="o">+</span> <span class="s2">&quot;:&quot;</span> <span class="o">+</span> <span class="nx">info</span><span class="p">.</span><span class="nx">port</span><span class="p">);</span>
+        <span class="p">}</span>
+    <span class="p">};</span>
+
+    <span class="kd">var</span> <span class="nx">server</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">server</span><span class="p">;</span>
+    
+    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nx">port</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">portfinder</span><span class="p">.</span><span class="nx">getPort</span><span class="p">(</span><span class="kd">function</span> <span class="p">(</span><span class="nx">err</span><span class="p">,</span> <span class="nx">foundPort</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nx">port</span> <span class="o">=</span> <span class="nx">foundPort</span><span class="p">;</span>
+            <span class="nx">startListening</span><span class="p">();</span>
+        <span class="p">});</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+        <span class="nx">startListening</span><span class="p">();</span>
+    <span class="p">}</span>
+
+    <span class="kd">function</span> <span class="nx">startListening</span><span class="p">()</span> <span class="p">{</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>make the base express server start listening on requests</p></div></div><div class="code"><div class="wrapper">        <span class="nx">server</span><span class="p">.</span><span class="nx">listen</span><span class="p">(</span><span class="nx">port</span><span class="p">,</span> <span class="nx">host</span><span class="p">,</span> <span class="nx">callback</span><span class="p">);</span>
+    <span class="p">}</span>
+    
+    <span class="k">return</span> <span class="k">this</span><span class="p">;</span>
+<span class="p">};</span></div></div></div></div></body></html>

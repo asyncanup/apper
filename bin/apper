@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 
+// # Command-line wrapper for Apper
 var argv = require('minimist')(process.argv.slice(2)),
     path = require('path');
 
@@ -15,20 +16,11 @@ if (argv.h || argv.help) {
     process.exit();
 }
 
+// Get path, port, and host from the command-line options
 var rootPath = argv._[0],
     port = argv.p || argv.port,
     host = argv.a || argv.address || '0.0.0.0';
 
-if (rootPath) rootPath = path.resolve(rootPath);
-
-// Start server
+// Start server on the path as root, and open the served URL in browser
 var app = require('../index')({ path: rootPath, toOpenBrowser: true });
 app.start(port, host);
-
-if (process.platform !== 'win32') {
-    // Signal handlers don't work on Windows.
-    process.on('SIGINT', function () {
-        log('Apper server stopped.'.red);
-        process.exit();
-    });
-}
