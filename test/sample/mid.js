@@ -9,7 +9,7 @@ module.exports = function (app) {
     app.use(bodyParser.urlencoded({ extended: true }));
     app.use(bodyParser.json());
     
-    app.sockets.on("connection", function (socket) {
+    app.sockets.on("connect", function (socket) {
         socket.emit("haha");
     });
 };

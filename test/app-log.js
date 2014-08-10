@@ -1,7 +1,10 @@
 var assert = require("assert"),
     request = require("supertest"),
     socketClient = require("socket.io-client"),
-    _ = require("underscore");
+    _ = require("underscore"),
+    debug = require("debug");
+
+var log = debug("apper:test");
 
 describe('app-log', function (){
     it("should handle /_logs route for root server logs", function (done) {
@@ -56,10 +59,10 @@ describe('app-log', function (){
             var serverAddress = app.server.address(),
                 socketURL = "http://localhost:" + serverAddress.port;
             
-            var client = socketClient.connect(socketURL),
+            var client = socketClient(socketURL),
                 logData = { key: "value" };
             
-            app.sockets.on("connection", function (socket) {
+            app.sockets.on("connect", function (socket) {
                 socket.on("_log", function (logData) {
                     socket.emit("_log_confirmed", logData);
                 });
@@ -80,9 +83,10 @@ describe('app-log', function (){
                         if (err) { return done(err); }
                         
                         var json = reqRes.res.body;
+                        log(json);
 
                         assert(_.some(json, function (logItem) {
-                            return _.isEqual(logItem.data[0], logData) && logItem.client === client.socket.sessionid;
+                            return _.isEqual(logItem.data[0], logData) && logItem.client === client.io.engine.id;
                         }));
 
                         done();

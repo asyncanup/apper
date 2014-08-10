@@ -1,6 +1,5 @@
 module.exports = function (app) {
-    app.sockets.use(function (socket) {
-        console.log("=====SOCKET!=====");
+    app.sockets.on("connect", function (socket) {
         socket.emit("lol");
     });
 };

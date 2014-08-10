@@ -10,8 +10,7 @@ describe("init/sockets", function () {
         app.start(function () {
             var serverAddress = app.server.address(),
                 socketURL = "http://localhost:" + serverAddress.port;
-            
-            socketClient.connect(socketURL).on("lol", done);
+            socketClient(socketURL).on("lol", done);
         });
     });
     

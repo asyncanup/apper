@@ -4,7 +4,7 @@ var path = require("path"),
 module.exports = function (opts) {
     var app = require("../")(_.extend({
         path: path.join(__dirname, "sample"),
-        port: 8000 + _.uniqueId()
+        port: 8000 + (+_.uniqueId())
     }, opts));
     
     app.log.disable();
