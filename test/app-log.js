@@ -69,6 +69,7 @@ describe('app-log', function (){
             });
             
             client.on("connect", function () {
+                log("emitting _log", client.id);
                 client.emit("_log", logData);
             });
         
