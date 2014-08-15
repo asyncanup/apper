@@ -60,15 +60,15 @@ relative URL of that subapp. No frills.</p>
 
 <ul><li><strong>server.js</strong>: See <em>Usage</em> section below</li>
 <li><strong>routes.js</strong>: GET /list</li>
-<li><p><strong>public/</strong></p>
-
+<li><strong>public/</strong>
 <ul><li><em>index.html</em></li>
-<li><em>main.js</em></li></ul></li>
+<li><em>main.js</em></li></ul></li></ul></li>
 <li><p><strong>subapp/</strong></p>
 
 <ul><li><p><em>routes.js</em>: GET /, POST /</p></li>
-<li><p><strong>subsubapp/</strong></p></li>
-<li><em>middleware.js</em></li>
+<li><p><strong>subsubapp/</strong></p>
+
+<ul><li><em>middleware.js</em></li>
 <li><em>routes.js</em>: GET /, GET /last</li></ul></li></ul></li>
 </ul>
 
@@ -240,9 +240,8 @@ configuration for the respective app:</p>
 <p>Whether to transparently minify and inline all JavaScript and CSS resources, 
 including RequireJS modules. Cached on first use, and served as is thereon.</p>
 
-<p>You can include <code>require-config.js</code> in RequireJS <code>baseUrl</code> directory to have
-this bundling respecting options other than those for async loading. 
-Usually not required.</p></li>
+<p>You can include <code>require-config.js</code> in RequireJS <code>baseUrl</code> directory to specify
+custom RequireJS options for bundling. Usually not required.</p></li>
 </ul>
 
 <h3 id="sampleapperjson">Sample <code>apper.json</code></h3>

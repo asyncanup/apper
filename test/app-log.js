@@ -64,12 +64,13 @@ describe('app-log', function (){
             
             app.sockets.on("connect", function (socket) {
                 socket.on("_log", function (logData) {
+                    log("receiving _log", socket.id);
                     socket.emit("_log_confirmed", logData);
                 });
             });
             
             client.on("connect", function () {
-                log("emitting _log", client.id);
+                log("emitting _log", client.io.engine.id);
                 client.emit("_log", logData);
             });
         

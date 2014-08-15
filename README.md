@@ -5,6 +5,7 @@ Plug and play, restful, real-time single page apps framework
 
 [![Build Status on Travis CI] [1]] [2]
 [![NPM Latest version] [3]] [4]
+[![Coveralls Coverage Status] [7]] [8]
 
 Install
 -------
@@ -58,17 +59,17 @@ relative URL of that subapp. No frills.
 
 ### Example directory structure
 
-  - root/
+- root/
     - **server.js**: See *Usage* section below
     - **routes.js**: GET /list
     - **public/**
-      - *index.html*
-      - *main.js*
+        - *index.html*
+        - *main.js*
 
-    - **subapp/**
-      - *routes.js*: GET /, POST /
+- **subapp/**
+    - *routes.js*: GET /, POST /
 
-      - **subsubapp/**
+    - **subsubapp/**
         - *middleware.js*
         - *routes.js*: GET /, GET /last
 
@@ -244,9 +245,8 @@ configuration for the respective app:
   Whether to transparently minify and inline all JavaScript and CSS resources, 
   including RequireJS modules. Cached on first use, and served as is thereon.
   
-  You can include `require-config.js` in RequireJS `baseUrl` directory to have
-  this bundling respecting options other than those for async loading. 
-  Usually not required.
+  You can include `require-config.js` in RequireJS `baseUrl` directory to specify
+  custom RequireJS options for bundling. Usually not required.
 
 
 ### Sample `apper.json`
@@ -291,3 +291,5 @@ MIT
 [4]: http://badge.fury.io/js/apper "NPM Latest Version"
 [5]: http://expressjs.com "Express.js"
 [6]: http://socket.io/ "Socket.io"
+[7]: https://coveralls.io/repos/anupbishnoi/apper/badge.png
+[8]: https://coveralls.io/r/anupbishnoi/apper "Coveralls Coverage Status"
