@@ -2,3 +2,5 @@ node_modules
 npm-debug.log
 .DS_Store
 .c9
+lib-cov
+.coveralls.yml

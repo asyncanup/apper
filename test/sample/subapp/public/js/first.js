@@ -1,1 +1,3 @@
-console.log("js/main: first.js contents");
+function firstLoaded() {
+    console.info("js/main: first.js contents");
+}

@@ -44,14 +44,18 @@
   },
   "scripts": {
     "prepublish": "npm prune",
-    "test": "mocha --recursive",
-    "doc": "docco lib/*.js"
+    "test": "mocha test --recursive",
+    "doc": "groc",
+    "docpush": "groc --github",
+    "coverage": "jscover lib lib-cov && APPER_COVERAGE=1 mocha test --recursive --reporter mocha-lcov-reporter | ./node_modules/coveralls/bin/coveralls.js; rm -rf lib-cov"
   },
   "engines": {
     "node": "*"
   },
   "license": "MIT",
   "devDependencies": {
+    "coveralls": "2.11.1",
+    "mocha-lcov-reporter": "0.0.1",
     "socket.io-client": "0.9.16",
     "supertest": "0.13.0"
   }
