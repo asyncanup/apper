@@ -14,6 +14,20 @@ describe("init/sockets", function () {
         });
     });
     
+    it("should connect on / namespace by default", function (done) {
+        var app = require("../app-maker")();
+        app.start(function () {
+            var serverAddress = app.server.address(),
+                socketURL = "http://localhost:" + serverAddress.port + "/",
+                partDone = _.after(2, done);
+            
+            var client = socketClient(socketURL);
+            
+            client.on("connect", partDone);
+            app.sockets.of(app.mountPath || "/").on("connection", partDone);
+        });
+    });
+    
     it("works independently across subapp namespaces", function (done) {
         var app = require("../app-maker")();
 

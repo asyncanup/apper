@@ -57,20 +57,18 @@ describe('app-log', function (){
         var app = require("./app-maker")();
         app.start(function () {
             var serverAddress = app.server.address(),
-                socketURL = "http://localhost:" + serverAddress.port;
+                socketURL = "http://localhost:" + serverAddress.port + "/";
             
             var client = socketClient(socketURL),
                 logData = { key: "value" };
             
-            app.sockets.on("connect", function (socket) {
+            app.expressApp.sockets.on("connection", function (socket) {
                 socket.on("_log", function (logData) {
-                    log("receiving _log", socket.id);
                     socket.emit("_log_confirmed", logData);
                 });
             });
             
             client.on("connect", function () {
-                log("emitting _log", client.io.engine.id);
                 client.emit("_log", logData);
             });
         
@@ -85,7 +83,6 @@ describe('app-log', function (){
                         if (err) { return done(err); }
                         
                         var json = reqRes.res.body;
-                        log(json);
 
                         assert(_.some(json, function (logItem) {
                             return _.isEqual(logItem.data[0], logData) && logItem.client === client.io.engine.id;
