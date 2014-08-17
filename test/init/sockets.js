@@ -1,4 +1,4 @@
-var socketIO = require("socket.io-client"),
+var socketClient = require("socket.io-client"),
     _ = require("underscore");
 
 describe("init/sockets", function () {
@@ -9,10 +9,22 @@ describe("init/sockets", function () {
         
         app.start(function () {
             var serverAddress = app.server.address(),
-                socketURL = "http://localhost:" + serverAddress.port,
-                socketOpts = { "force new connection" : true };
+                socketURL = "http://localhost:" + serverAddress.port;
+            socketClient(socketURL).on("lol", done);
+        });
+    });
+    
+    it("should connect on / namespace by default", function (done) {
+        var app = require("../app-maker")();
+        app.start(function () {
+            var serverAddress = app.server.address(),
+                socketURL = "http://localhost:" + serverAddress.port + "/",
+                partDone = _.after(2, done);
             
-            socketIO.connect(socketURL, socketOpts).on("lol", done);
+            var client = socketClient(socketURL);
+            
+            client.on("connect", partDone);
+            app.sockets.of(app.mountPath || "/").on("connection", partDone);
         });
     });
     
@@ -24,8 +36,8 @@ describe("init/sockets", function () {
                 socketURL = "http://localhost:" + serverAddress.port,
                 socketOpts = { "force new connection" : true };
             
-            var rootClient = socketIO.connect(socketURL, socketOpts);
-            var subappClient = socketIO.connect(socketURL + "/subapp", socketOpts);
+            var rootClient = socketClient.connect(socketURL, socketOpts);
+            var subappClient = socketClient.connect(socketURL + "/subapp", socketOpts);
             
             var partDone = _.after(2, done),
                 throwError = function () {
@@ -35,8 +47,8 @@ describe("init/sockets", function () {
             var partConnected = _.after(2, emitStuff);
             
             function emitStuff() {
-                app.expressApp.socketIO.emit("hi");
-                app.subApps.subapp.expressApp.socketIO.emit("hello");
+                app.expressApp.sockets.emit("hi");
+                app.subapps.subapp.expressApp.sockets.emit("hello");
             }
             
             rootClient.on("connect", partConnected);
