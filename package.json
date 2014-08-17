@@ -43,7 +43,7 @@
   },
   "scripts": {
     "prepublish": "npm prune",
-    "test": "mocha --recursive"
+    "test": "DEBUG=apper:,crood mocha --recursive"
   },
   "engines": {
     "node": "*"
