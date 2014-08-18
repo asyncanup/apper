@@ -1,6 +1,6 @@
 {
   "name": "apper",
-  "description": "Convention-based restful app development in node.js",
+  "description": "Plug and play, restful, real-time application framework for single page apps",
   "homepage": "https://github.com/anupbishnoi/apper",
   "version": "2.4.0",
   "author": {
