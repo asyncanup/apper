@@ -307,7 +307,7 @@ configuration for the respective app:
   custom RequireJS options for bundling. Usually not required.
 
 
-### Sample `apper.json`
+### Sample `apper.json` configuration file
 
     {
         "moduleNames: {

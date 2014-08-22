@@ -50,8 +50,7 @@
     "docpush": "groc && groc --github",
     "coverage": "jscover lib lib-cov && APPER_COVERAGE=1 mocha test --recursive --reporter mocha-lcov-reporter | ./node_modules/coveralls/bin/coveralls.js; rm -rf lib-cov",
     "test": "DEBUG=apper:test mocha --recursive",
-    "version": "groc && git add --all && git commit -m 'updated docs' && npm version",
-    "deploy": "git push && git push --tags && groc --github && npm run coverage"
+    "deploy": "groc && git add --all && git commit -m 'updated docs' && npm version patch && git push && git push --tags && groc --github && npm publish && npm run coverage"
   },
   "engines": {
     "node": "*"
