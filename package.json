@@ -25,13 +25,16 @@
     "convention",
     "framework",
     "web",
-    "rest",
+    "REST",
     "restful",
     "router",
     "app",
     "api",
     "subapp",
-    "mount"
+    "mount",
+    "realtime",
+    "WebSockets",
+    "sockets"
   ],
   "repository": {
     "type": "git",

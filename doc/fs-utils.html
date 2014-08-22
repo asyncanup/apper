@@ -14,12 +14,19 @@
     <span class="kd">var</span> <span class="nx">loadedModule</span><span class="p">;</span>
     <span class="k">try</span> <span class="p">{</span>
         <span class="nx">loadedModule</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="nx">modulePath</span><span class="p">);</span>
-    <span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
-        <span class="nx">log</span><span class="p">([</span><span class="s2">&quot;Error loading module:&quot;</span><span class="p">,</span> <span class="nx">modulePath</span><span class="p">,</span> <span class="nx">e</span><span class="p">.</span><span class="nx">stack</span><span class="p">].</span><span class="nx">join</span><span class="p">(</span><span class="s2">&quot;\n&quot;</span><span class="p">));</span>
-    <span class="p">}</span>
-    <span class="k">if</span> <span class="p">(</span><span class="k">typeof</span> <span class="nx">loadedModule</span> <span class="o">===</span> <span class="s2">&quot;function&quot;</span><span class="p">)</span> <span class="p">{</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>the module to be loaded must be a function</p></div></div><div class="code"><div class="wrapper">        <span class="nx">loadedModule</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="nx">app</span><span class="p">.</span><span class="nx">expressApp</span><span class="p">,</span> <span class="nx">app</span><span class="p">.</span><span class="nx">expressApp</span><span class="p">);</span>
+    <span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span> <span class="nx">errorLoadingModule</span><span class="p">(</span><span class="nx">e</span><span class="p">);</span> <span class="p">}</span>
+    
+    <span class="k">if</span> <span class="p">(</span><span class="k">typeof</span> <span class="nx">loadedModule</span> <span class="o">===</span> <span class="s2">&quot;function&quot;</span><span class="p">)</span> <span class="p">{</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>the module to be loaded must be a function</p></div></div><div class="code"><div class="wrapper">        <span class="k">try</span> <span class="p">{</span>
+            <span class="nx">loadedModule</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="nx">app</span><span class="p">.</span><span class="nx">expressApp</span><span class="p">,</span> <span class="nx">app</span><span class="p">.</span><span class="nx">expressApp</span><span class="p">);</span>
+        <span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span> <span class="nx">errorLoadingModule</span><span class="p">(</span><span class="nx">e</span><span class="p">);</span> <span class="p">}</span>
+        
         <span class="k">return</span> <span class="kc">true</span><span class="p">;</span>
     <span class="p">}</span>
+    
+    <span class="kd">function</span> <span class="nx">errorLoadingModule</span><span class="p">(</span><span class="nx">e</span><span class="p">)</span> <span class="p">{</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">([</span><span class="s2">&quot;Error loading module:&quot;</span><span class="p">,</span> <span class="nx">modulePath</span><span class="p">,</span> <span class="nx">e</span><span class="p">.</span><span class="nx">stack</span><span class="p">].</span><span class="nx">join</span><span class="p">(</span><span class="s2">&quot;\n&quot;</span><span class="p">));</span>
+    <span class="p">}</span>
+    
     <span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
 <span class="p">};</span>
 
