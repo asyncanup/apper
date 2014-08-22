@@ -5,7 +5,7 @@ Plug and play, restful, real-time application framework for single page apps.
 
 [![Build Status on Travis CI] [1]] [2]
 [![NPM Latest version] [3]] [4]
-[![Coveralls Coverage Status] [7]] [8]
+<!--[![Coveralls Coverage Status] [7]] [8]-->
 
 Install
 -------
