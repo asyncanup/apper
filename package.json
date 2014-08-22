@@ -1,7 +1,7 @@
 {
   "name": "apper",
   "description": "Plug and play, restful, real-time application framework for single page apps",
-  "homepage": "https://github.com/anupbishnoi/apper",
+  "homepage": "https://github.com/asyncanup/apper",
   "version": "2.4.5",
   "author": {
     "name": "Anup Bishnoi",
@@ -38,7 +38,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git://github.com/anupbishnoi/apper"
+    "url": "git://github.com/async/apper"
   },
   "main": "index",
   "bin": {
@@ -48,7 +48,7 @@
     "prepublish": "npm prune",
     "doc": "groc",
     "docpush": "groc && groc --github",
-    "coverage": "jscover lib lib-cov && APPER_COVERAGE=1 mocha test --recursive --reporter mocha-lcov-reporter > .tmp-coverage && cd lib && cat ../.tmp-coverage | ./node_modules/coveralls/bin/coveralls.js; rm -rf lib-cov .tmp-coverage",
+    "coverage": "jscover lib lib-cov && APPER_COVERAGE=1 mocha test --recursive --reporter mocha-lcov-reporter > .tmp-coverage && cd lib && cat ../.tmp-coverage | ../node_modules/coveralls/bin/coveralls.js && cd .. && rm -rf lib-cov .tmp-coverage",
     "test": "DEBUG=apper:test mocha --recursive",
     "deploy": "groc && git add --all && git commit -m 'updated docs' && npm version patch && git push && git push --tags && groc --github && npm publish && npm run coverage"
   },
