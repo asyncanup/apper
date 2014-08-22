@@ -343,12 +343,12 @@ License
 MIT
 
 
-[1]: https://api.travis-ci.org/anupbishnoi/apper.png
-[2]: https://travis-ci.org/anupbishnoi/apper "Build Status on Travis CI"
+[1]: https://api.travis-ci.org/asyncanup/apper.png
+[2]: https://travis-ci.org/asyncanup/apper "Build Status on Travis CI"
 [3]: https://badge.fury.io/js/apper.png
 [4]: http://badge.fury.io/js/apper "NPM Latest Version"
 [5]: http://expressjs.com "Express.js"
 [6]: http://socket.io/ "Socket.io"
-[7]: https://coveralls.io/repos/anupbishnoi/apper/badge.png
-[8]: https://coveralls.io/r/anupbishnoi/apper "Coveralls Coverage Status"
+[7]: https://coveralls.io/repos/asyncanup/apper/badge.png
+[8]: https://coveralls.io/r/asyncanup/apper "Coveralls Coverage Status"
 [9]: https://github.com/visionmedia/debug "Debug module on NPM"
