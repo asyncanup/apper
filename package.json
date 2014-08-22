@@ -2,7 +2,7 @@
   "name": "apper",
   "description": "Plug and play, restful, real-time application framework for single page apps",
   "homepage": "https://github.com/anupbishnoi/apper",
-  "version": "2.4.3",
+  "version": "2.4.4",
   "author": {
     "name": "Anup Bishnoi",
     "email": "pixelsallover@gmail.com"
