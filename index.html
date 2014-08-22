@@ -18,19 +18,7 @@
 <pre><code>npm install apper
 </code></pre>
 
-<h2 id="command-line-usage">Command-line usage</h2>
-
-<p>Just open the command prompt in a directory with server-side code as described below, and run:</p>
-
-<pre><code>apper --port 8000 --address 0.0.0.0 ./src
-</code></pre>
-
-<p>Here, <code>./src</code> is the root path of the application code.
-It defaults to the current directory from which <code>apper</code> is run.</p>
-
-<p>Port and address are optional and default to shown values.</p>
-
-<h2 id="idea">Idea</h2>
+<h2 id="motivation">Motivation</h2>
 
 <p><a href="http://expressjs.com" title="Express.js">Express</a> isn't enough. It lacks structure and conventions.</p>
 
@@ -38,7 +26,7 @@ It defaults to the current directory from which <code>apper</code> is run.</p>
 
 <ul>
 <li>Much needed <strong>structure</strong> to server-side code with strong conventions</li>
-<li>Reliable <strong>folder hierarchy</strong> for code based on REST end-points</li>
+<li>Reliable <strong>directory hierarchy</strong> for code based on REST end-points</li>
 <li>Design for <strong>real-time</strong> right off the bat</li>
 <li>Transparent <strong>minification &amp; bundling</strong> for single page apps</li>
 </ul>
@@ -51,7 +39,7 @@ Simply place individual subapps anywhere in the directory hierarchy, and they ge
 exposed under a relative base URL.</p>
 
 <p>Nested subapps are totally cool and highly encouraged.
-In fact, simply by moving a subapp directory to another folder updates the exposed 
+In fact, simply by moving a subapp directory to another directory updates the exposed 
 relative URL of that subapp. No frills.</p>
 
 <h3 id="example-directory-structure">Example directory structure</h3>
@@ -94,18 +82,18 @@ GET  /subapp/subsubapp/last
 
 <h3 id="what-makes-an-app">What makes an app?</h3>
 
-<p>A regular folder becomes a valid app if it has one or more of the following:</p>
+<p>A regular directory becomes a valid app if it has one or more of the following:</p>
 
 <ul>
 <li>An environment settings module with the name <code>environment.js</code></li>
 <li>A middleware module with the name <code>middleware.js</code></li>
 <li>A socket subscription module with the name <code>sockets.js</code></li>
-<li>A static content folder with the name <code>public</code></li>
+<li>A static content directory with the name <code>public</code></li>
 <li>A routes module with the name <code>routes.js</code></li>
 </ul>
 
-<p>All of the default file/folder names above can be changed by options in 
-<code>apper.json</code> file in any folder.</p>
+<p>All of the default file/directory names above can be changed by options in 
+<code>apper.json</code> file in any directory.</p>
 
 <h4 id="order-of-initialization-of-above-mentioned-modules">Order of initialization of above-mentioned modules</h4>
 
@@ -115,8 +103,8 @@ GET  /subapp/subsubapp/last
 <li>Environment module gets loaded to set environment settings using <code>app.set</code> (like Express)</li>
 <li>Middleware module gets loaded to setup middleware functions using <code>app.use</code> (like Express)</li>
 <li>Sockets module gets loaded to setup WebSocket subscriptions between server and client </li>
-<li>Static content folder gets exposed on subapp's url
-(the folder hierarchy containing the subapp)</li>
+<li>Static content directory gets exposed on subapp's url
+(the directory hierarchy containing the subapp)</li>
 <li>Routes get loaded that respond to URL end-points (using <code>app.get</code>, <code>app.post</code>, etc.)</li>
 </ul>
 
@@ -128,7 +116,7 @@ These directories become subapps of the root app.</p>
 <p>Subapps can be pulled out and placed anywhere in the overall directory structure.
 This would make them available on the new relative url with respect to the root.</p>
 
-<p>Every subapp folder can be started as a separated app by including <code>server.js</code> in there.</p>
+<p>Every subapp directory can be started as a separated app just by running <code>apper</code> in there.</p>
 
 <p>Due to the directory hierarchy based mounting of subapps, the base URL paths of
 all subapps are decided by their position in the directory hierarchy.</p>
@@ -138,29 +126,104 @@ handle requests accordingly.</p>
 
 <h2 id="usage">Usage</h2>
 
-<h3 id="serverjs">server.js</h3>
+<h3 id="from-command-line">From command-line</h3>
 
-<pre><code>var app = require("apper")();
+<p>Just open the command prompt in a directory with server-side code as described below, and run:</p>
+
+<pre><code>apper --port 8000 --address 0.0.0.0 ./src
+</code></pre>
+
+<p>Here, <code>./src</code> is the root path of the application code.
+It defaults to the current directory from which <code>apper</code> is run.</p>
+
+<p>Port and address are optional and default to shown values.</p>
+
+<p>To display internal logs while working, just prepend <code>DEBUG=apper:*</code> to the command, like this:</p>
+
+<pre><code>DEBUG=apper:* apper --port 8000
+</code></pre>
+
+<h3 id="as-a-module">As a module</h3>
+
+<p>Create a file (say, <code>server.js</code>) in your application directory</p>
+
+<pre><code>var app = require('apper')({
+    port: 8000
+});
 app.start();
 </code></pre>
+
+<p>Then, running <code>server.js</code> will start the application on port 8000. For example:</p>
+
+<pre><code>node server.js
+</code></pre>
+
+<p>To see internal logs (helpful during development), just set the environment variable <code>DEBUG</code> as follows:</p>
+
+<pre><code>DEBUG=apper:* node server.js
+</code></pre>
+
+<p>For more ways to use <code>DEBUG</code>, see <a href="https://github.com/visionmedia/debug" title="Debug module on NPM">Debug Module on NPM</a></p>
+
+<h3 id="as-express-application">As Express application</h3>
+
+<p>Create an application object as usual, and use <code>app.expressApp</code> as a regular express application</p>
+
+<pre><code>var app = require('apper')(),
+    expressApp = app.expressApp;
+
+// Now `expressApp` is a regular Express application with all the features of your **apper** application
+expressApp.listen(5000);
+</code></pre>
+
+<p>You can mount this application to a base URL in your regular express app as follows:</p>
+
+<pre><code>var app = require('apper')();
+MyRootApp.use('/blog', app);
+</code></pre>
+
+<p>Now <strong>/blog</strong>  route will invoke the <strong>apper</strong> application.</p>
+
+<h2 id="startup-options">Startup Options</h2>
 
 <p>It automatically loads the modules mentioned above and starts a server.</p>
 
 <p>You could provide options like:</p>
 
-<pre><code>var app = require("apper")({
-    path: ".",
+<pre><code>var app = require('apper')({
+    path: '.',
     port: 8000,
-    host: "0.0.0.0"
+    host: '0.0.0.0',
+
+    // Not commonly used. Just use `apper.json` for the configuration
+    toOpenBrowser: false,
+    staticContentName: 'public',
+    moduleNames: {
+        environment: 'environment'
+        middleware: 'middleware',
+        routes: 'routes',
+        sockets: 'sockets'
+    },
+    mountPath: ''
 });
 app.start();
 </code></pre>
 
-<p>The options mean the following:
-- path</p>
+<p>The default values for the options (path/port/etc) are as shown above.
+The options mean the following:</p>
 
-<p>Server automatically listens to WebSocket requests (using <code>socket.io</code>).
-Include <code>&lt;script src='/socket.io/socket.io.js'&gt;&lt;/script&gt;</code> in HTML for use on client-side.</p>
+<ul>
+<li><code>path</code>: Path for the directory to be taken as the root application.</li>
+<li><code>port</code>: Port number on which to expose the application.</li>
+<li><code>host</code>: Host name to be used for the application (<code>127.0.0.1</code>, <code>localhost</code>, <code>0.0.0.0</code>, etc).</li>
+<li><code>toOpenBrowser</code>: Whether to open the system default browser with the created application.</li>
+<li><code>staticContentName</code>: AheName of the static content directory inside the application directory.</li>
+<li><code>moduleNames.*</code>: As discussed below in Structure of Modules.</li>
+<li><code>mountPath</code>: Base URL to mount this application on, if so needed. Used internally for mounting subapps.</li>
+</ul>
+
+<p>Server automatically starts a socket.io WebSocket server which clients can connect to by including
+<code>&lt;script src='/socket.io/socket.io.js'&gt;&lt;/script&gt;</code> in client-side code.</p>
 
 <h3 id="structure-of-modules">Structure of modules</h3>
 
@@ -168,12 +231,12 @@ Include <code>&lt;script src='/socket.io/socket.io.js'&gt;&lt;/script&gt;</code>
 <code>app.set</code>, <code>app.use</code>, <code>app.get</code>, <code>app.post</code>, etc. on it.</p>
 
 <p>For WebSocket requests, <code>app.sockets</code> provides the same functionality as
-<code>io.sockets</code> using [socket.io] [</p>
+<code>io.sockets</code> using <a href="http://socket.io/" title="Socket.io">socket.io</a></p>
 
 <h4 id="environmentjs">environment.js</h4>
 
 <pre><code>module.exports = function (app) {
-    app.set("property", "value");
+    app.set('property', 'value');
     // Environment configuration
 };
 </code></pre>
@@ -192,10 +255,10 @@ Include <code>&lt;script src='/socket.io/socket.io.js'&gt;&lt;/script&gt;</code>
 <h4 id="socketsjs">sockets.js</h4>
 
 <pre><code>module.exports = function (app) {
-    app.sockets.on("connection", function (socket) {
+    app.sockets.on('connection', function (socket) {
 
-        socket.on("hey", function (name) {
-            socket.emit("Hey " + name + "!");
+        socket.on('hey', function (name) {
+            socket.emit('Hey ' + name + '!');
         });
 
     }
@@ -206,8 +269,8 @@ Include <code>&lt;script src='/socket.io/socket.io.js'&gt;&lt;/script&gt;</code>
 
 <pre><code>module.exports = function (app) {
 
-    app.get("/", function (req, res) {
-        res.send("hey");
+    app.get('/', function (req, res) {
+        res.send('hey');
     });
 };
 </code></pre>
@@ -218,22 +281,22 @@ Include <code>&lt;script src='/socket.io/socket.io.js'&gt;&lt;/script&gt;</code>
 configuration for the respective app:</p>
 
 <ul>
-<li><p><code>moduleNames.environment</code> (Example: <em>"env"</em>)</p>
+<li><p><code>moduleNames.environment</code> (Example: <em>'env'</em>)</p>
 
 <p>Environment module file name for the current app</p></li>
-<li><p><code>moduleNames.middleware</code> (Example: <em>"mid"</em>)</p>
+<li><p><code>moduleNames.middleware</code> (Example: <em>'mid'</em>)</p>
 
 <p>Middleware module file name for the current app</p></li>
-<li><p><code>moduleNames.sockets</code> (Example: <em>"sock"</em>)</p>
+<li><p><code>moduleNames.sockets</code> (Example: <em>'sock'</em>)</p>
 
 <p>Socket subscriptions module for the current app</p></li>
-<li><p><code>moduleNames.routes</code> (Example: <em>"route-definitions"</em>)</p>
+<li><p><code>moduleNames.routes</code> (Example: <em>'route-definitions'</em>)</p>
 
 <p>Routes module file name for the current app</p></li>
-<li><p><code>staticContentPath</code> (Example: <em>"www"</em>)</p>
+<li><p><code>staticContentPath</code> (Example: <em>'www'</em>)</p>
 
 <p>Static content directory name for the current app.</p></li>
-<li><p><code>dirToIgnore</code> (Example: <em>["subapp", "another"]</em>)</p>
+<li><p><code>dirToIgnore</code> (Example: <em>['subapp', 'another']</em>)</p>
 
 <p>List of directories to not consider as subapps in the current app's directory.</p></li>
 <li><p><code>bundle</code> (Example: <em>true</em>/<em>false</em>)</p>
@@ -245,7 +308,7 @@ including RequireJS modules. Cached on first use, and served as is thereon.</p>
 custom RequireJS options for bundling. Usually not required.</p></li>
 </ul>
 
-<h3 id="sampleapperjson">Sample <code>apper.json</code></h3>
+<h3 id="sampleapperjsonconfigurationfile">Sample <code>apper.json</code> configuration file</h3>
 
 <pre><code>{
     "moduleNames: {

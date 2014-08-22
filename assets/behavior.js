@@ -39,16 +39,8 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
               "type": "heading",
               "data": {
                 "level": 2,
-                "title": "Command-line usage",
-                "slug": "command-line-usage"
-              },
-              "depth": 2
-            }, {
-              "type": "heading",
-              "data": {
-                "level": 2,
-                "title": "Idea",
-                "slug": "idea"
+                "title": "Motivation",
+                "slug": "motivation"
               },
               "depth": 2,
               "children": [
@@ -121,11 +113,38 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
                   "type": "heading",
                   "data": {
                     "level": 3,
-                    "title": "server.js",
-                    "slug": "serverjs"
+                    "title": "From command-line",
+                    "slug": "from-command-line"
                   },
                   "depth": 3
                 }, {
+                  "type": "heading",
+                  "data": {
+                    "level": 3,
+                    "title": "As a module",
+                    "slug": "as-a-module"
+                  },
+                  "depth": 3
+                }, {
+                  "type": "heading",
+                  "data": {
+                    "level": 3,
+                    "title": "As Express application",
+                    "slug": "as-express-application"
+                  },
+                  "depth": 3
+                }
+              ]
+            }, {
+              "type": "heading",
+              "data": {
+                "level": 2,
+                "title": "Startup Options",
+                "slug": "startup-options"
+              },
+              "depth": 2,
+              "children": [
+                {
                   "type": "heading",
                   "data": {
                     "level": 3,
@@ -213,16 +232,8 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
           "type": "heading",
           "data": {
             "level": 2,
-            "title": "Command-line usage",
-            "slug": "command-line-usage"
-          },
-          "depth": 2
-        }, {
-          "type": "heading",
-          "data": {
-            "level": 2,
-            "title": "Idea",
-            "slug": "idea"
+            "title": "Motivation",
+            "slug": "motivation"
           },
           "depth": 2,
           "children": [
@@ -295,11 +306,38 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
               "type": "heading",
               "data": {
                 "level": 3,
-                "title": "server.js",
-                "slug": "serverjs"
+                "title": "From command-line",
+                "slug": "from-command-line"
               },
               "depth": 3
             }, {
+              "type": "heading",
+              "data": {
+                "level": 3,
+                "title": "As a module",
+                "slug": "as-a-module"
+              },
+              "depth": 3
+            }, {
+              "type": "heading",
+              "data": {
+                "level": 3,
+                "title": "As Express application",
+                "slug": "as-express-application"
+              },
+              "depth": 3
+            }
+          ]
+        }, {
+          "type": "heading",
+          "data": {
+            "level": 2,
+            "title": "Startup Options",
+            "slug": "startup-options"
+          },
+          "depth": 2,
+          "children": [
+            {
               "type": "heading",
               "data": {
                 "level": 3,
@@ -751,36 +789,6 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
               "foldPrefix": "^",
               "name": "JavaScript"
             },
-            "sourcePath": "/home/ubuntu/workspace/lib/init/logging.js",
-            "projectPath": "lib/init/logging.js",
-            "targetPath": "init/logging",
-            "pageTitle": "init/logging",
-            "firstHeader": {
-              "type": "heading",
-              "data": {
-                "level": 1,
-                "title": "Unified WebSocket logger",
-                "slug": "unified-websocket-logger",
-                "isFileHeader": true
-              },
-              "depth": 1
-            },
-            "title": "Unified WebSocket logger"
-          },
-          "depth": 2,
-          "outline": []
-        }, {
-          "type": "file",
-          "data": {
-            "language": {
-              "nameMatchers": [".js"],
-              "pygmentsLexer": "javascript",
-              "multiLineComment": ["/*", "*", "*/"],
-              "singleLineComment": ["//"],
-              "ignorePrefix": "}",
-              "foldPrefix": "^",
-              "name": "JavaScript"
-            },
             "sourcePath": "/home/ubuntu/workspace/lib/init/middleware.js",
             "projectPath": "lib/init/middleware.js",
             "targetPath": "init/middleware",
@@ -796,26 +804,6 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
               "depth": 1
             },
             "title": "Load Middleware"
-          },
-          "depth": 2,
-          "outline": []
-        }, {
-          "type": "file",
-          "data": {
-            "language": {
-              "nameMatchers": [".js"],
-              "pygmentsLexer": "javascript",
-              "multiLineComment": ["/*", "*", "*/"],
-              "singleLineComment": ["//"],
-              "ignorePrefix": "}",
-              "foldPrefix": "^",
-              "name": "JavaScript"
-            },
-            "sourcePath": "/home/ubuntu/workspace/lib/init/plugins.js",
-            "projectPath": "lib/init/plugins.js",
-            "targetPath": "init/plugins",
-            "pageTitle": "init/plugins",
-            "title": "plugins"
           },
           "depth": 2,
           "outline": []
