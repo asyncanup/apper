@@ -1,24 +1,24 @@
-var assert = require("assert"),
-    request = require("supertest");
+var assert = require('assert'),
+    request = require('supertest');
 
 describe('init/routes-static', function () {
-    var app = require("../app-maker")();
+    var app = require('../app-maker')();
 
-    it("should serve static content in public folder", function (done) {
+    it('should serve static content in public folder', function (done) {
         request(app.server)
-            .get("/haha.txt")
-            .expect("haha", done);
+            .get('/haha.txt')
+            .expect('haha', done);
     });
     
-    it("should serve from route, even if index.html is present in public", function (done) {
+    it('should serve from route, even if index.html is present in public', function (done) {
         request(app.server)
-            .get("/")
-            .expect("route wala index", done);
+            .get('/')
+            .expect('route wala index', done);
     });
     
-    it("should respond with updated index.html for minified resources", function (done) {
+    it('should respond with updated index.html for minified resources', function (done) {
         request(app.server)
-            .get("/subapp")
+            .get('/subapp')
             .end(function (err, reqRes) {
                 var html = reqRes.res.text;
                 
@@ -35,9 +35,9 @@ describe('init/routes-static', function () {
             });
     });
     
-    it("should include requirejs build with response for index.html", function (done) {
+    it('should include requirejs build with response for index.html', function (done) {
         request(app.server)
-            .get("/subapp")
+            .get('/subapp')
                 .end(function (err, reqRes) {
                     var html = reqRes.res.text;
                     

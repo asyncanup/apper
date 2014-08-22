@@ -1,9 +1,9 @@
-var path = require("path"),
-    _ = require("underscore");
+var path = require('path'),
+    _ = require('underscore');
 
 module.exports = function (opts) {
-    var app = require("../")(_.extend({
-        path: path.join(__dirname, "sample"),
+    var app = require('../')(_.extend({
+        path: path.join(__dirname, 'sample'),
         port: 8000 + (+_.uniqueId())
     }, opts));
     
