@@ -9,8 +9,6 @@
     <span class="nx">UglifyJS</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s2">&quot;uglify-js&quot;</span><span class="p">);</span>
 
 <span class="nx">exports</span><span class="p">.</span><span class="nx">loadModule</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">app</span><span class="p">,</span> <span class="nx">modulePath</span><span class="p">)</span> <span class="p">{</span>
-    <span class="kd">var</span> <span class="nx">log</span> <span class="o">=</span> <span class="nx">app</span><span class="p">.</span><span class="nx">log</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="nx">app</span><span class="p">);</span>
-
     <span class="kd">var</span> <span class="nx">loadedModule</span><span class="p">;</span>
     <span class="k">try</span> <span class="p">{</span>
         <span class="nx">loadedModule</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="nx">modulePath</span><span class="p">);</span>
