@@ -10,12 +10,12 @@
 
 <p>For usage as command-line tool:</p>
 
-<pre><code>npm install -g apper
+<pre><code class="bash">$ npm install -g apper
 </code></pre>
 
 <p>For usage in code:</p>
 
-<pre><code>npm install apper
+<pre><code class="bash">$ npm install apper
 </code></pre>
 
 <h2 id="motivation">Motivation</h2>
@@ -130,7 +130,7 @@ handle requests accordingly.</p>
 
 <p>Just open the command prompt in a directory with server-side code as described below, and run:</p>
 
-<pre><code>apper --port 8000 --address 0.0.0.0 ./src
+<pre><code class="bash">$ apper --port 8000 --address 0.0.0.0 ./src
 </code></pre>
 
 <p>Here, <code>./src</code> is the root path of the application code.
@@ -140,14 +140,14 @@ It defaults to the current directory from which <code>apper</code> is run.</p>
 
 <p>To display internal logs while working, just prepend <code>DEBUG=apper:*</code> to the command, like this:</p>
 
-<pre><code>DEBUG=apper:* apper --port 8000
+<pre><code class="bash">$ DEBUG=apper:* apper --port 8000
 </code></pre>
 
 <h3 id="as-a-module">As a module</h3>
 
 <p>Create a file (say, <code>server.js</code>) in your application directory</p>
 
-<pre><code>var app = require('apper')({
+<pre><code class="js">var app = require('apper')({
     port: 8000
 });
 app.start();
@@ -155,12 +155,12 @@ app.start();
 
 <p>Then, running <code>server.js</code> will start the application on port 8000. For example:</p>
 
-<pre><code>node server.js
+<pre><code class="bash">$ node server.js
 </code></pre>
 
 <p>To see internal logs (helpful during development), just set the environment variable <code>DEBUG</code> as follows:</p>
 
-<pre><code>DEBUG=apper:* node server.js
+<pre><code class="bash">$ DEBUG=apper:* node server.js
 </code></pre>
 
 <p>For more ways to use <code>DEBUG</code>, see <a href="https://github.com/visionmedia/debug" title="Debug module on NPM">Debug Module on NPM</a></p>
@@ -169,7 +169,7 @@ app.start();
 
 <p>Create an application object as usual, and use <code>app.expressApp</code> as a regular express application</p>
 
-<pre><code>var app = require('apper')(),
+<pre><code class="js">var app = require('apper')(),
     expressApp = app.expressApp;
 
 // Now `expressApp` is a regular Express application with all the features of your **apper** application
@@ -178,7 +178,7 @@ expressApp.listen(5000);
 
 <p>You can mount this application to a base URL in your regular express app as follows:</p>
 
-<pre><code>var app = require('apper')();
+<pre><code class="js">var app = require('apper')();
 MyRootApp.use('/blog', app);
 </code></pre>
 
@@ -190,7 +190,7 @@ MyRootApp.use('/blog', app);
 
 <p>You could provide options like:</p>
 
-<pre><code>var app = require('apper')({
+<pre><code class="js">var app = require('apper')({
     path: '.',
     port: 8000,
     host: '0.0.0.0',
@@ -235,7 +235,7 @@ The options mean the following:</p>
 
 <h4 id="environmentjs">environment.js</h4>
 
-<pre><code>module.exports = function (app) {
+<pre><code class="js">module.exports = function (app) {
     app.set('property', 'value');
     // Environment configuration
 };
@@ -243,7 +243,7 @@ The options mean the following:</p>
 
 <h4 id="middlewarejs">middleware.js</h4>
 
-<pre><code>module.exports = function (app) {
+<pre><code class="js">module.exports = function (app) {
 
     app.use(function (req, res, next) {
         // middleware code
@@ -254,7 +254,7 @@ The options mean the following:</p>
 
 <h4 id="socketsjs">sockets.js</h4>
 
-<pre><code>module.exports = function (app) {
+<pre><code class="js">module.exports = function (app) {
     app.sockets.on('connection', function (socket) {
 
         socket.on('hey', function (name) {
@@ -267,7 +267,7 @@ The options mean the following:</p>
 
 <h4 id="routesjs">routes.js</h4>
 
-<pre><code>module.exports = function (app) {
+<pre><code class="js">module.exports = function (app) {
 
     app.get('/', function (req, res) {
         res.send('hey');
@@ -310,7 +310,7 @@ custom RequireJS options for bundling. Usually not required.</p></li>
 
 <h3 id="sampleapperjsonconfigurationfile">Sample <code>apper.json</code> configuration file</h3>
 
-<pre><code>{
+<pre><code class="js">{
     "moduleNames: {
         "environment": "env",
         "middleware": "mid",
@@ -327,13 +327,13 @@ custom RequireJS options for bundling. Usually not required.</p></li>
 
 <p>To run tests yourself, install <code>mocha</code></p>
 
-<pre><code>npm install
-npm install -g mocha
+<pre><code class="bash">$ npm install
+$ npm install -g mocha
 </code></pre>
 
 <p>In the project directory, run</p>
 
-<pre><code>npm test
+<pre><code class="bash">$ npm test
 </code></pre>
 
 <p>Check out the <code>test</code> directory for usage examples.</p>
