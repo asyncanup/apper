@@ -335,7 +335,7 @@ configuration for the respective app:
 
 ### Sample `apper.json` configuration file
 
-```json
+```js
 {
     "moduleNames: {
         "environment": "env",
