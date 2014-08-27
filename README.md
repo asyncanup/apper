@@ -12,13 +12,15 @@ Install
 
 For usage as command-line tool:
 
-    npm install -g apper
-
+```bash
+$ npm install -g apper
+```
 
 For usage in code:
 
-    npm install apper
-
+```bash
+$ npm install apper
+```
 
 Motivation
 ----------
@@ -131,7 +133,9 @@ Usage
 
 Just open the command prompt in a directory with server-side code as described below, and run:
 
-    apper --port 8000 --address 0.0.0.0 ./src
+```bash
+$ apper --port 8000 --address 0.0.0.0 ./src
+```
     
 Here, `./src` is the root path of the application code.
 It defaults to the current directory from which `apper` is run.
@@ -140,25 +144,33 @@ Port and address are optional and default to shown values.
 
 To display internal logs while working, just prepend `DEBUG=apper:*` to the command, like this:
 
-    DEBUG=apper:* apper --port 8000
+```bash
+$ DEBUG=apper:* apper --port 8000
+```
 
 
 ### As a module
 
 Create a file (say, `server.js`) in your application directory
 
-    var app = require('apper')({
-        port: 8000
-    });
-    app.start();
+```js
+var app = require('apper')({
+    port: 8000
+});
+app.start();
+```
 
 Then, running `server.js` will start the application on port 8000. For example:
 
-    node server.js
+```bash
+$ node server.js
+```
 
 To see internal logs (helpful during development), just set the environment variable `DEBUG` as follows:
 
-    DEBUG=apper:* node server.js
+```bash
+$ DEBUG=apper:* node server.js
+```
 
 For more ways to use `DEBUG`, see [Debug Module on NPM] [9]
 
@@ -167,16 +179,20 @@ For more ways to use `DEBUG`, see [Debug Module on NPM] [9]
 
 Create an application object as usual, and use `app.expressApp` as a regular express application
 
-    var app = require('apper')(),
-        expressApp = app.expressApp;
+```js
+var app = require('apper')(),
+    expressApp = app.expressApp;
 
-    // Now `expressApp` is a regular Express application with all the features of your **apper** application
-    expressApp.listen(5000);
+// Now `expressApp` is a regular Express application with all the features of your **apper** application
+expressApp.listen(5000);
+```
 
 You can mount this application to a base URL in your regular express app as follows:
 
-    var app = require('apper')();
-    MyRootApp.use('/blog', app);
+```js
+var app = require('apper')();
+MyRootApp.use('/blog', app);
+```
 
 Now __/blog__  route will invoke the **apper** application.
 
@@ -188,23 +204,25 @@ It automatically loads the modules mentioned above and starts a server.
 
 You could provide options like:
 
-    var app = require('apper')({
-        path: '.',
-        port: 8000,
-        host: '0.0.0.0',
-        
-        // Not commonly used. Just use `apper.json` for the configuration
-        toOpenBrowser: false,
-        staticContentName: 'public',
-        moduleNames: {
-            environment: 'environment'
-            middleware: 'middleware',
-            routes: 'routes',
-            sockets: 'sockets'
-        },
-        mountPath: ''
-    });
-    app.start();
+```js
+var app = require('apper')({
+    path: '.',
+    port: 8000,
+    host: '0.0.0.0',
+    
+    // Not commonly used. Just use `apper.json` for the configuration
+    toOpenBrowser: false,
+    staticContentName: 'public',
+    moduleNames: {
+        environment: 'environment'
+        middleware: 'middleware',
+        routes: 'routes',
+        sockets: 'sockets'
+    },
+    mountPath: ''
+});
+app.start();
+```
 
 The default values for the options (path/port/etc) are as shown above.
 The options mean the following:
@@ -231,41 +249,49 @@ For WebSocket requests, `app.sockets` provides the same functionality as
 
 #### environment.js
 
-    module.exports = function (app) {
-        app.set('property', 'value');
-        // Environment configuration
-    };
+```js
+module.exports = function (app) {
+    app.set('property', 'value');
+    // Environment configuration
+};
+```
 
 #### middleware.js
 
-    module.exports = function (app) {
-        
-        app.use(function (req, res, next) {
-            // middleware code
-            next();
-        });
-    };
+```js
+module.exports = function (app) {
+    
+    app.use(function (req, res, next) {
+        // middleware code
+        next();
+    });
+};
+```
     
 #### sockets.js
 
-    module.exports = function (app) {
-        app.sockets.on('connection', function (socket) {
-            
-            socket.on('hey', function (name) {
-                socket.emit('Hey ' + name + '!');
-            });
-            
-        }
-    };
+```js
+module.exports = function (app) {
+    app.sockets.on('connection', function (socket) {
+        
+        socket.on('hey', function (name) {
+            socket.emit('Hey ' + name + '!');
+        });
+        
+    }
+};
+```
 
 #### routes.js
 
-    module.exports = function (app) {
-        
-        app.get('/', function (req, res) {
-            res.send('hey');
-        });
-    };
+```js
+module.exports = function (app) {
+    
+    app.get('/', function (req, res) {
+        res.send('hey');
+    });
+};
+```
 
 
 Configuration
@@ -309,17 +335,19 @@ configuration for the respective app:
 
 ### Sample `apper.json` configuration file
 
-    {
-        "moduleNames: {
-            "environment": "env",
-            "middleware": "mid",
-            "sockets": "sock",
-            "routes": "route-definitions"
-        },
-        "staticContentPath": "www",
-        "dirToIgnore": ["subapp", "another"],
-        "bundle": true
-    }
+```js
+{
+    "moduleNames: {
+        "environment": "env",
+        "middleware": "mid",
+        "sockets": "sock",
+        "routes": "route-definitions"
+    },
+    "staticContentPath": "www",
+    "dirToIgnore": ["subapp", "another"],
+    "bundle": true
+}
+```
 
 
 Tests
@@ -327,12 +355,16 @@ Tests
 
 To run tests yourself, install `mocha`
 
-    npm install
-    npm install -g mocha
+```bash
+$ npm install
+$ npm install -g mocha
+```
 
 In the project directory, run
 
-    npm test
+```bash
+$ npm test
+```
 
 Check out the `test` directory for usage examples.
 
