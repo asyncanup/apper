@@ -31,6 +31,14 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
               "type": "heading",
               "data": {
                 "level": 2,
+                "title": "App",
+                "slug": "app"
+              },
+              "depth": 2
+            }, {
+              "type": "heading",
+              "data": {
+                "level": 2,
                 "title": "Install",
                 "slug": "install"
               },
@@ -39,8 +47,35 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
               "type": "heading",
               "data": {
                 "level": 2,
+                "title": "Usage",
+                "slug": "usage"
+              },
+              "depth": 2,
+              "children": [
+                {
+                  "type": "heading",
+                  "data": {
+                    "level": 3,
+                    "title": "From command-line",
+                    "slug": "from-command-line"
+                  },
+                  "depth": 3
+                }
+              ]
+            }, {
+              "type": "heading",
+              "data": {
+                "level": 2,
                 "title": "Motivation",
                 "slug": "motivation"
+              },
+              "depth": 2
+            }, {
+              "type": "heading",
+              "data": {
+                "level": 2,
+                "title": "Example",
+                "slug": "example"
               },
               "depth": 2,
               "children": [
@@ -66,30 +101,19 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
               "type": "heading",
               "data": {
                 "level": 2,
-                "title": "Concepts",
-                "slug": "concepts"
+                "title": "Core Concepts",
+                "slug": "core-concepts"
               },
               "depth": 2,
               "children": [
                 {
                   "type": "heading",
                   "data": {
-                    "level": 3,
-                    "title": "What makes an app?",
-                    "slug": "what-makes-an-app"
+                    "level": 4,
+                    "title": "Order of initialization of modules",
+                    "slug": "order-of-initialization-of-modules"
                   },
-                  "depth": 3,
-                  "children": [
-                    {
-                      "type": "heading",
-                      "data": {
-                        "level": 4,
-                        "title": "Order of initialization of above-mentioned modules",
-                        "slug": "order-of-initialization-of-above-mentioned-modules"
-                      },
-                      "depth": 4
-                    }
-                  ]
+                  "depth": 4
                 }, {
                   "type": "heading",
                   "data": {
@@ -104,20 +128,12 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
               "type": "heading",
               "data": {
                 "level": 2,
-                "title": "Usage",
-                "slug": "usage"
+                "title": "Programmatic Usage",
+                "slug": "programmatic-usage"
               },
               "depth": 2,
               "children": [
                 {
-                  "type": "heading",
-                  "data": {
-                    "level": 3,
-                    "title": "From command-line",
-                    "slug": "from-command-line"
-                  },
-                  "depth": 3
-                }, {
                   "type": "heading",
                   "data": {
                     "level": 3,
@@ -133,18 +149,34 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
                     "slug": "as-express-application"
                   },
                   "depth": 3
+                }, {
+                  "type": "heading",
+                  "data": {
+                    "level": 3,
+                    "title": "As Express middleware",
+                    "slug": "as-express-middleware"
+                  },
+                  "depth": 3
                 }
               ]
             }, {
               "type": "heading",
               "data": {
                 "level": 2,
-                "title": "Startup Options",
-                "slug": "startup-options"
+                "title": "More Code",
+                "slug": "more-code"
               },
               "depth": 2,
               "children": [
                 {
+                  "type": "heading",
+                  "data": {
+                    "level": 3,
+                    "title": "Startup",
+                    "slug": "startup"
+                  },
+                  "depth": 3
+                }, {
                   "type": "heading",
                   "data": {
                     "level": 3,
@@ -173,6 +205,14 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
                       "type": "heading",
                       "data": {
                         "level": 4,
+                        "title": "routes.js",
+                        "slug": "routesjs"
+                      },
+                      "depth": 4
+                    }, {
+                      "type": "heading",
+                      "data": {
+                        "level": 4,
                         "title": "sockets.js",
                         "slug": "socketsjs"
                       },
@@ -181,8 +221,8 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
                       "type": "heading",
                       "data": {
                         "level": 4,
-                        "title": "routes.js",
-                        "slug": "routesjs"
+                        "title": "Client-side socket code",
+                        "slug": "client-side-socket-code"
                       },
                       "depth": 4
                     }
@@ -224,6 +264,14 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
           "type": "heading",
           "data": {
             "level": 2,
+            "title": "App",
+            "slug": "app"
+          },
+          "depth": 2
+        }, {
+          "type": "heading",
+          "data": {
+            "level": 2,
             "title": "Install",
             "slug": "install"
           },
@@ -232,8 +280,35 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
           "type": "heading",
           "data": {
             "level": 2,
+            "title": "Usage",
+            "slug": "usage"
+          },
+          "depth": 2,
+          "children": [
+            {
+              "type": "heading",
+              "data": {
+                "level": 3,
+                "title": "From command-line",
+                "slug": "from-command-line"
+              },
+              "depth": 3
+            }
+          ]
+        }, {
+          "type": "heading",
+          "data": {
+            "level": 2,
             "title": "Motivation",
             "slug": "motivation"
+          },
+          "depth": 2
+        }, {
+          "type": "heading",
+          "data": {
+            "level": 2,
+            "title": "Example",
+            "slug": "example"
           },
           "depth": 2,
           "children": [
@@ -259,30 +334,19 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
           "type": "heading",
           "data": {
             "level": 2,
-            "title": "Concepts",
-            "slug": "concepts"
+            "title": "Core Concepts",
+            "slug": "core-concepts"
           },
           "depth": 2,
           "children": [
             {
               "type": "heading",
               "data": {
-                "level": 3,
-                "title": "What makes an app?",
-                "slug": "what-makes-an-app"
+                "level": 4,
+                "title": "Order of initialization of modules",
+                "slug": "order-of-initialization-of-modules"
               },
-              "depth": 3,
-              "children": [
-                {
-                  "type": "heading",
-                  "data": {
-                    "level": 4,
-                    "title": "Order of initialization of above-mentioned modules",
-                    "slug": "order-of-initialization-of-above-mentioned-modules"
-                  },
-                  "depth": 4
-                }
-              ]
+              "depth": 4
             }, {
               "type": "heading",
               "data": {
@@ -297,20 +361,12 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
           "type": "heading",
           "data": {
             "level": 2,
-            "title": "Usage",
-            "slug": "usage"
+            "title": "Programmatic Usage",
+            "slug": "programmatic-usage"
           },
           "depth": 2,
           "children": [
             {
-              "type": "heading",
-              "data": {
-                "level": 3,
-                "title": "From command-line",
-                "slug": "from-command-line"
-              },
-              "depth": 3
-            }, {
               "type": "heading",
               "data": {
                 "level": 3,
@@ -326,18 +382,34 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
                 "slug": "as-express-application"
               },
               "depth": 3
+            }, {
+              "type": "heading",
+              "data": {
+                "level": 3,
+                "title": "As Express middleware",
+                "slug": "as-express-middleware"
+              },
+              "depth": 3
             }
           ]
         }, {
           "type": "heading",
           "data": {
             "level": 2,
-            "title": "Startup Options",
-            "slug": "startup-options"
+            "title": "More Code",
+            "slug": "more-code"
           },
           "depth": 2,
           "children": [
             {
+              "type": "heading",
+              "data": {
+                "level": 3,
+                "title": "Startup",
+                "slug": "startup"
+              },
+              "depth": 3
+            }, {
               "type": "heading",
               "data": {
                 "level": 3,
@@ -366,6 +438,14 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
                   "type": "heading",
                   "data": {
                     "level": 4,
+                    "title": "routes.js",
+                    "slug": "routesjs"
+                  },
+                  "depth": 4
+                }, {
+                  "type": "heading",
+                  "data": {
+                    "level": 4,
                     "title": "sockets.js",
                     "slug": "socketsjs"
                   },
@@ -374,8 +454,8 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
                   "type": "heading",
                   "data": {
                     "level": 4,
-                    "title": "routes.js",
-                    "slug": "routesjs"
+                    "title": "Client-side socket code",
+                    "slug": "client-side-socket-code"
                   },
                   "depth": 4
                 }
