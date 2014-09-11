@@ -245,7 +245,7 @@ var app = require('apper')({
     
     // Not commonly used. Just use `apper.json` for the configuration
     toOpenBrowser: false,
-    staticContentName: 'public',
+    staticDir: 'public',
     moduleNames: {
         environment: 'environment'
         middleware: 'middleware',
@@ -264,9 +264,9 @@ The options mean the following:
 - `port`: Port number on which to expose the application.
 - `host`: Host name to be used for the application (`127.0.0.1`, `localhost`, `0.0.0.0`, etc).
 - `toOpenBrowser`: Whether to open the system default browser with the created application.
-- `staticContentName`: AheName of the static content directory inside the application directory.
+- `staticDir`: Name of the static content directory.
 - `moduleNames.*`: As discussed below in Structure of Modules.
-- `mountPath`: Base URL to mount this application on, if so needed. Used internally for mounting subapps.
+- `mountPath`: Base URL to mount this application on. Used internally for mounting subapps.
 
 Server automatically starts a single socket.io WebSocket server that works across all subapps
 but maintains separate namespaces for all communication with different subapps.
@@ -367,7 +367,7 @@ configuration for the respective app:
   
   Routes module file name for the current app
 
-* `staticContentPath` (Example: _'www'_)
+* `staticDir` (Example: _'www'_)
   
   Static content directory name for the current app.
 
@@ -394,7 +394,7 @@ configuration for the respective app:
         "sockets": "sock",
         "routes": "route-definitions"
     },
-    "staticContentPath": "www",
+    "staticDir": "www",
     "dirToIgnore": ["subapp", "another"],
     "bundle": true
 }

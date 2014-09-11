@@ -5,5 +5,5 @@
         "middleware": "mid",
         "sockets": "sock"
     },
-    "staticContentName": "www"
+    "staticDir": "www"
 }
