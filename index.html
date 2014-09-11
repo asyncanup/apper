@@ -45,9 +45,7 @@
 <p>Plug and play, restful, real-time application framework for single page apps.</p>
 
 <p><a href="https://travis-ci.org/asyncanup/apper" title="Build Status on Travis CI"><img src="https://api.travis-ci.org/asyncanup/apper.png" alt="Build Status on Travis CI"></a>
-<a href="http://badge.fury.io/js/apper" title="NPM Latest Version"><img src="https://badge.fury.io/js/apper.png" alt="NPM Latest version"></a></p>
-
-
+<a href="http://badge.fury.io/js/apper" title="NPM Latest Version"><img src="http://badge.fury.io/js/apper.png" alt="NPM Latest version"></a></p>
 
 <h2>
 <a name="app" class="anchor" href="#app"><span class="octicon octicon-link"></span></a>App</h2>
@@ -144,18 +142,18 @@ relative URL of that subapp. No frills.</p>
 <a name="example-directory-structure" class="anchor" href="#example-directory-structure"><span class="octicon octicon-link"></span></a>Example directory structure</h3>
 
 <pre><code>+ root/
-    - server.js (See Programmatic Usage section below)
-    - routes.js (GET /login)
+.... server.js (See Programmatic Usage section below)
+.... routes.js (GET /login)
     + public/
-        - index.html
-        - main.js
+    .... index.html
+    .... main.js
 
     + api/
-        - routes.js (GET /, POST /)
+    .... routes.js (GET /, POST /)
 
         + items/
-            - middleware.js
-            - routes.js (GET /, GET /last)
+        .... middleware.js
+        .... routes.js (GET /, GET /last)
 </code></pre>
 
 <p><em>routes.js</em> files above are supposed to specify route handlers for paths mentioned
@@ -283,7 +281,7 @@ server by calling <code>app.start()</code>.</p>
 
     <span class="c1">// Not commonly used. Just use `apper.json` for the configuration</span>
     <span class="nx">toOpenBrowser</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
-    <span class="nx">staticContentName</span><span class="o">:</span> <span class="s1">'public'</span><span class="p">,</span>
+    <span class="nx">staticDir</span><span class="o">:</span> <span class="s1">'public'</span><span class="p">,</span>
     <span class="nx">moduleNames</span><span class="o">:</span> <span class="p">{</span>
         <span class="nx">environment</span><span class="o">:</span> <span class="s1">'environment'</span>
         <span class="nx">middleware</span><span class="o">:</span> <span class="s1">'middleware'</span><span class="p">,</span>
@@ -308,11 +306,11 @@ The options mean the following:</p>
 <li>
 <code>toOpenBrowser</code>: Whether to open the system default browser with the created application.</li>
 <li>
-<code>staticContentName</code>: AheName of the static content directory inside the application directory.</li>
+<code>staticDir</code>: Name of the static content directory.</li>
 <li>
 <code>moduleNames.*</code>: As discussed below in Structure of Modules.</li>
 <li>
-<code>mountPath</code>: Base URL to mount this application on, if so needed. Used internally for mounting subapps.</li>
+<code>mountPath</code>: Base URL to mount this application on. Used internally for mounting subapps.</li>
 </ul><p>Server automatically starts a single socket.io WebSocket server that works across all subapps
 but maintains separate namespaces for all communication with different subapps.</p>
 
@@ -417,7 +415,7 @@ configuration for the respective app:</p>
 <p>Routes module file name for the current app</p>
 </li>
 <li>
-<p><code>staticContentPath</code> (Example: <em>'www'</em>)</p>
+<p><code>staticDir</code> (Example: <em>'www'</em>)</p>
 
 <p>Static content directory name for the current app.</p>
 </li>
@@ -445,7 +443,7 @@ custom RequireJS options for bundling. Usually not required.</p>
         "sockets": "sock",
         "routes": "route-definitions"
     },
-    "staticContentPath": "www",
+    "staticDir": "www",
     "dirToIgnore": ["subapp", "another"],
     "bundle": true
 }
