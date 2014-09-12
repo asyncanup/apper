@@ -11,7 +11,7 @@
     "debug": "1.0.4",
     "underscore": "1.6.0",
     "portfinder": "0.2.1",
-    "socket.io": "1.0.6",
+    "socket.io": "1.1.0",
     "express": "4.8.2",
     "requirejs": "2.1.14",
     "amdefine": "0.1.0",
@@ -58,7 +58,7 @@
     "coveralls": "2.11.1",
     "mocha-lcov-reporter": "0.0.1",
     "body-parser": "1.6.2",
-    "socket.io-client": "1.0.6",
+    "socket.io-client": "1.1.0",
     "supertest": "0.13.0"
   }
 }
