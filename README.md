@@ -1,6 +1,8 @@
 Apper
 =====
 
+[![Join the chat at https://gitter.im/asyncanup/apper](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/asyncanup/apper?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 Plug and play, restful, real-time application framework for single page apps.
 
 [![Build Status on Travis CI](https://api.travis-ci.org/asyncanup/apper.png)](https://travis-ci.org/asyncanup/apper "Build Status on Travis CI")
